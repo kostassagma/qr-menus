@@ -6,7 +6,7 @@ const MinimalNav: FC = () => {
   return (
     <nav className="flex p-3 gap-3 justify-center sticky top-0 backdrop-blur-2xl z-50 w-full">
       <div className="flex max-w-7xl gap-3 w-full">
-        <Link href="/dash" className="flex mr-auto align-middle my-auto">
+        <Link href="/" className="flex mr-auto align-middle my-auto">
           <QrIcon
             width={22}
             className="text-black inline-block mr-1"
