@@ -14,7 +14,7 @@ const googleLink =
       "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
   }).toString();
 
-export default function Home() {
+export default function Auth() {
   return (
     <>
       <main className="h-screen flex flex-col">
