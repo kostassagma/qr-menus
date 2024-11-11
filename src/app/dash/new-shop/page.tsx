@@ -12,7 +12,7 @@ import { redirect } from "next/navigation";
 export default function NewShop() {
   const { pathname, supported_languages, shop_name } = useNewShopState();
 
-  async function createShop(formData: FormData) {
+  async function createShop() {
     if (
       !pathname ||
       !shop_name ||
@@ -35,7 +35,7 @@ export default function NewShop() {
         return shopName;
       });
     } catch (err) {
-      return;
+      return err;
     }
 
     const supabase = await createBrowserClient();
@@ -47,7 +47,7 @@ export default function NewShop() {
       return;
     }
 
-    const { data, error, count } = await supabase
+    const { data, error } = await supabase
       .from("shops")
       .insert({
         pathname: pathname,
@@ -64,7 +64,7 @@ export default function NewShop() {
     }
 
     await supabase.from("shop_names").insert(
-      //@ts-ignore
+      //@ts-expect-error because locale is str but supabase expects el|en
       name.map(({ locale, text }) => ({
         locale,
         text,
@@ -80,8 +80,8 @@ export default function NewShop() {
       <div className="min-h-screen">
         <DashNav />
         <form
-          action={async (e) => {
-            await createShop(e);
+          action={async () => {
+            await createShop();
           }}
           className="p-4 max-w-5xl w-full mx-auto flex flex-col gap-5 py-10"
         >

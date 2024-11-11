@@ -11,11 +11,13 @@ interface Props {
 
 const DashNav: FC<Props> = ({ shop }) => {
   const [user, setUser] = useState<User | null>(null);
+  console.log(shop);
 
   useEffect(() => {
     (async () => {
       const supabase = await createBrowserClient();
       const userResponse = await supabase.auth.getUser();
+      if (!userResponse.data.user) return;
       const shopResponse = await supabase
         .from("shops")
         .select(
@@ -26,9 +28,9 @@ const DashNav: FC<Props> = ({ shop }) => {
         )
       `
         )
-        .eq("owner", userResponse.data.user?.id!);
+        .eq("owner", userResponse.data.user.id);
       console.log(shopResponse.data);
-      setUser(userResponse.data.user)
+      setUser(userResponse.data.user);
     })();
   }, []);
   return (

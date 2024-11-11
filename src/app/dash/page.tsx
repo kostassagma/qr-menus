@@ -7,7 +7,7 @@ import Link from "next/link";
 export default async function Dash() {
   const supabase = await createServerClient();
 
-  const { data, error } = await supabase.auth.getUser();
+  const { data } = await supabase.auth.getUser();
 
   if (!data.user) return <></>;
 

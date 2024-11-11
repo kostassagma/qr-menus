@@ -19,7 +19,7 @@ const HotToast: FC = () => {
       toast.error("Ο κωδικός σας έχει λήξει!");
       toast("Εισάγετε τον νέο κωδικό που σας στείλαμε");
     }
-  }, [searchParams]);
+  }, [searchParams, toastParam]);
 
   return <Toaster />;
 };

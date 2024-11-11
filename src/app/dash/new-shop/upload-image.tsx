@@ -56,7 +56,7 @@ const UploadWidget: FC<UploadWidgetProps> = ({ file, setFile, name }) => {
     setIsDragging(false);
   };
 
-  const handleRemoveFile = (e: any) => {
+  const handleRemoveFile = (e: React.MouseEvent) => {
     e.preventDefault();
     setFile(""); // Clear the file URL
   };

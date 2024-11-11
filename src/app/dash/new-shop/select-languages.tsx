@@ -5,8 +5,7 @@ import { SUPPORTED_LANGUAGES } from "@/utils/constants";
 import CloseIcon from "@/icons/close";
 
 const SelectLanguages: FC = () => {
-  const { supported_languages, pathname, addLang, removeLang } =
-    useNewShopState();
+  const { supported_languages, addLang, removeLang } = useNewShopState();
 
   return (
     <div>
@@ -34,9 +33,11 @@ const SelectLanguages: FC = () => {
                 } bg-gray-500 hover:bg-gray-600 text-white py-1 px-3 transition ease-in-out`}
                 onClick={(e) => {
                   e.preventDefault();
-                  supported_languages.includes(symbol)
-                    ? removeLang(symbol)
-                    : addLang(symbol);
+                  if (supported_languages.includes(symbol)) {
+                    removeLang(symbol);
+                  } else {
+                    addLang(symbol);
+                  }
                 }}
               >
                 <CloseIcon
