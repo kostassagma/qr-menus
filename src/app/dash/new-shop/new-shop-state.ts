@@ -1,12 +1,12 @@
 import { create } from "zustand";
 import { nanoid } from "nanoid";
 
-interface ShopNameType {
+export interface ShopNameType {
   locale: string;
   text: string;
 }
 
-interface NewShopStateType {
+export interface NewShopStateType {
   supported_languages: string[];
   shop_name: ShopNameType[];
   addLang: (lang: string) => void;
