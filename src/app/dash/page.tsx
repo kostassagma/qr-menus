@@ -1,10 +1,10 @@
 import BigFooter from "@/components/footer/big-footer";
-import HomeNav from "@/components/navbar/home-nav";
+import DashNav from "@/components/navbar/dash-nav";
 import WebIcon from "@/icons/web";
 import { createServerClient } from "@/utils/supabase/server";
 import Link from "next/link";
 
-export default async function Home() {
+export default async function Dash() {
   const supabase = await createServerClient();
 
   const { data, error } = await supabase.auth.getUser();
@@ -13,7 +13,7 @@ export default async function Home() {
 
   return (
     <>
-      <HomeNav />
+      <DashNav />
       <main>
         <div className="h-[80vh] flex p-4">
           <div className="m-auto max-w-lg">
