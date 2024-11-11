@@ -25,7 +25,7 @@ export const cta = {
 
 const HomeNav: FC = () => {
   return (
-    <nav className="flex p-3 border-b border-black gap-3 justify-center sticky top-0 backdrop-blur-2xl z-50 w-full">
+    <nav className="flex p-3 border-b border-gray-300 gap-3 justify-center sticky top-0 backdrop-blur-2xl z-50 w-full">
       <div className="flex max-w-7xl gap-3 w-full">
         <Link
           href="/"
@@ -45,19 +45,20 @@ const HomeNav: FC = () => {
             </Link>
           ))}
         </ul>
-        <a href={cta.href}>
-          <button className="bg-accent hover:scale-105 text-white font-bold py-1 px-3 sm:py-2 sm:px-4 rounded transition ease-in-out relative group overflow-hidden flex">
-            <WebIcon
-              className="group-hover:translate-y-5 group-hover:translate-x-5 -top-10 -left-10 absolute transition ease-in-out"
-              width={40}
-            />
-            <WebIcon
-              className="group-hover:-translate-y-5 group-hover:-translate-x-5 -bottom-10 -right-10 absolute transition ease-in-out"
-              width={40}
-            />
-            {cta.label}
-          </button>
-        </a>
+        <Link
+          href={cta.href}
+          className="bg-accent hover:scale-105 text-white font-bold py-1 px-3 sm:py-2 sm:px-4 rounded transition ease-in-out relative group overflow-hidden flex"
+        >
+          <WebIcon
+            className="group-hover:translate-y-5 group-hover:translate-x-5 -top-10 -left-10 absolute transition ease-in-out"
+            width={40}
+          />
+          <WebIcon
+            className="group-hover:-translate-y-5 group-hover:-translate-x-5 -bottom-10 -right-10 absolute transition ease-in-out"
+            width={40}
+          />
+          {cta.label}
+        </Link>
       </div>
     </nav>
   );
