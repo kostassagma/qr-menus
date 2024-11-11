@@ -1,8 +1,9 @@
-import { createServerClient as _ } from '@supabase/ssr'
-import { cookies } from 'next/headers'
+import "server-only";
+import { createServerClient as _ } from "@supabase/ssr";
+import { cookies } from "next/headers";
 
 export async function createServerClient() {
-  const cookieStore = await cookies()
+  const cookieStore = await cookies();
 
   // Create a server's supabase client with newly configured cookie,
   // which could be used to maintain user's session
@@ -12,13 +13,13 @@ export async function createServerClient() {
     {
       cookies: {
         getAll() {
-          return cookieStore.getAll()
+          return cookieStore.getAll();
         },
         setAll(cookiesToSet) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options)
-            )
+            );
           } catch {
             // The `setAll` method was called from a Server Component.
             // This can be ignored if you have middleware refreshing
@@ -27,5 +28,5 @@ export async function createServerClient() {
         },
       },
     }
-  )
+  );
 }
