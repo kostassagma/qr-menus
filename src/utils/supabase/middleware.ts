@@ -32,5 +32,21 @@ export async function updateSession(request: NextRequest) {
   // refreshing the auth token
   const { data, error } = await supabase.auth.getUser();
 
+  const { pathname } = request.nextUrl;
+
+  // matching /dash/anything
+  if (pathname.match(/^\/dash(?:.*)?$/)) {
+    if (error || !data.user) {
+      return NextResponse.redirect(new URL("/auth/", request.url));
+    }
+  }
+
+  // matching /auth/anything
+  if (pathname.match(/^\/auth(?:.*)?$/)) {
+    if (data.user) {
+      return NextResponse.redirect(new URL("/dash/", request.url));
+    }
+  }
+
   return supabaseResponse;
 }
