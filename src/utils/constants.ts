@@ -15,8 +15,6 @@ export const EMAIL_API_KEY = process.env.EMAIL_API_KEY!;
 export const SUPPORTED_LANGUAGES = [
   { symbol: "el", label: "Ελληνικά" },
   { symbol: "en", label: "Αγγλικά" },
-  { symbol: "es", label: "Ισπανικά" },
-  { symbol: "sq", label: "Αλβανικά" },
 ];
 
 export const HOSTNAME = process.env.NEXT_PUBLIC_HOST!;
