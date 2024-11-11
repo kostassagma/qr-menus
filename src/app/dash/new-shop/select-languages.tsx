@@ -11,7 +11,7 @@ const SelectLanguages: FC = () => {
   return (
     <div>
       <h1 className="text-xl">
-        Αρχικά, επιλέξτε τις γλώσσες που θα περιλαμβάνει ο κατάλαγος:
+        &#8594; Αρχικά, επιλέξτε τις γλώσσες που θα περιλαμβάνει ο κατάλαγος:
       </h1>
       <div className="block">
         {SUPPORTED_LANGUAGES.map(({ symbol, label }) => (
@@ -52,18 +52,6 @@ const SelectLanguages: FC = () => {
           </div>
         ))}
       </div>
-      <p>
-        Με τις τρέχουσες επιλογές, ο καταλογός σας είναι διαθέσιμος στις εξής
-        γλώσσες:{" "}
-        {supported_languages
-          .map((symbol) => {
-            for (let i = 0; i < SUPPORTED_LANGUAGES.length; i++) {
-              if (SUPPORTED_LANGUAGES[i].symbol == symbol)
-                return SUPPORTED_LANGUAGES[i].label;
-            }
-          })
-          .join(", ")}
-      </p>
     </div>
   );
 };

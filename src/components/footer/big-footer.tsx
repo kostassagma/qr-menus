@@ -5,7 +5,7 @@ import { FC } from "react";
 const BigFooter: FC = () => {
   return (
     <footer className="pt-20 border-t border-gray-300">
-      <div className="flex px-10 gap-5 lg:flex-row flex-col">
+      <div className="flex px-10 gap-5 lg:flex-row flex-col max-w-7xl mx-auto">
         <div className="w-full">
           <Link
             href="/"
