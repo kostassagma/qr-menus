@@ -1,7 +1,4 @@
-import BigFooter from "@/components/footer/big-footer";
-import DashNav from "@/components/navbar/dash-nav";
-import SideNav from "../side-nav";
-import { Suspense } from "react";
+import ShopLayout from "../shop-layout";
 
 export default async function ShopPage({
   params,
@@ -10,18 +7,5 @@ export default async function ShopPage({
 }) {
   const shop = (await params).shop;
 
-  return (
-    <>
-      <div className="min-h-screen flex flex-col">
-        <DashNav shop={shop} />
-        <main className="max-w-5xl mx-auto w-full flex flex-row p-5 gap-5">
-          <Suspense>
-            <SideNav shopPathname={shop} tab={0} />
-          </Suspense>
-          <div>Γενικές Ρυθμίσεις</div>
-        </main>
-      </div>
-      <BigFooter />
-    </>
-  );
+  return <ShopLayout tab={0} shop={shop}>γενικά</ShopLayout>;
 }
