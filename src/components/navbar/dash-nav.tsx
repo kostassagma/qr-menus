@@ -44,7 +44,7 @@ const DashNav: FC<Props> = ({ shop }) => {
           />
         </div>
         <div className="flex flex-row gap-2 group cursor-pointer border border-transparent hover:border-gray-300 rounded-md p-2 transition-all ease-in-out">
-          <p className="my-auto">{user ? user.email : "loagin"}</p>
+          <p className="my-auto">{user ? user.email : "login"}</p>
           <UserIcon
             className="my-auto group-hover:bg-gray-200 p-1 rounded-full transition-all ease-in-out"
             width={30}

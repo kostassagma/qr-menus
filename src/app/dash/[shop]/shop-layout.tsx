@@ -20,7 +20,7 @@ export default function ShopLayout({
           <Suspense>
             <SideNav shopPathname={shop} tab={tab} />
           </Suspense>
-          <div>{children}</div>
+          {children}
         </main>
       </div>
       <BigFooter />
