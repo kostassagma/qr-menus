@@ -28,12 +28,12 @@ const SideNav: FC<Props> = ({ tab, shopPathname }) => {
             {labels[e]}
           </li>
           {selected == i && (
-            <span className="absolute bg-black h-1 w-3/4 rounded-t-full bottom-0 left-1/2 -translate-x-1/2" />
+            <span className="absolute bg-black h-1 w-3/4 rounded-t-full bottom-0 left-1/2 -translate-x-1/2 sm:hidden" />
           )}
         </Link>
       ))}
       <div
-        className="absolute w-full rounded-md h-[32px] bg-black transition-all ease-in-out z-0 invisible sm:visible left-0"
+        className="absolute w-full rounded-md h-[32px] bg-black transition-all ease-in-out z-0 hidden sm:block left-0"
         style={{
           top: selected * 36,
         }}
