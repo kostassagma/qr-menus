@@ -2,10 +2,8 @@
 import { useAuthState } from "@/app/dash/auth-state";
 import ChevronIcon from "@/icons/chevron";
 import UserIcon from "@/icons/user";
-import { createBrowserClient } from "@/utils/supabase/client";
-import { User } from "@supabase/supabase-js";
 import Link from "next/link";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 
 interface Props {
   shop?: string | undefined;

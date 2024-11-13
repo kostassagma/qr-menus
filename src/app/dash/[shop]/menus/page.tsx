@@ -14,9 +14,10 @@ export default async function ShopPage({
       <div className="flex-1">
         <h2 className="text-xl mb-3">Οι κατάλογοι του μαγαζιού:</h2>
         <div className="grid grid-cols-4 gap-5 w-full">
-          {["a", "a", "a", "a", "a", "a", "a", "a", "a"].map((menu) => (
+          {["a", "a", "a", "a", "a", "a", "a", "a", "a"].map((menu, i) => (
             <Link
               href={`/dash/${menu}`}
+              key={i}
               className="rounded-lg p-5 border border-gray-300 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-500"
             >
               {menu}
