@@ -16,7 +16,7 @@ export default function ShopLayout({
     <>
       <div className="min-h-screen flex flex-col">
         <DashNav shop={shop} />
-        <main className="max-w-5xl mx-auto w-full flex flex-col p-5 gap-5 sm:flex-row">
+        <main className="max-w-5xl mx-auto w-full flex flex-col p-4 gap-5 sm:flex-row">
           <Suspense>
             <SideNav shopPathname={shop} tab={tab} />
           </Suspense>
