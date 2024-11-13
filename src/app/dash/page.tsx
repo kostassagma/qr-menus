@@ -1,53 +1,49 @@
+"use client";
 import BigFooter from "@/components/footer/big-footer";
 import DashNav from "@/components/navbar/dash-nav";
 import WebIcon from "@/icons/web";
-import { createServerClient } from "@/utils/supabase/server";
 import Link from "next/link";
+import { useAuthState } from "./auth-state";
+import PlusIcon from "@/icons/plus";
 
-export default async function Dash() {
-  const supabase = await createServerClient();
-
-  const { data } = await supabase.auth.getUser();
-
-  if (!data.user) return <></>;
+export default function Dash() {
+  const { email, shops } = useAuthState();
 
   return (
     <>
-      <DashNav />
-      <main>
-        <div className="h-[80vh] flex p-4">
-          <div className="m-auto max-w-lg">
-            <h1 className="text-2xl font-semibold">{data.user.email}</h1>
-            <p className="mb-3">
-              Κατακτήστε τον παγκόσμιο δημιουργώντας το μενού σας με λίγα μόνο
-              κλικ
-            </p>
-            <div className="flex">
-              <a href="/auth">
-                <button className="bg-accent hover:scale-105 text-white font-bold py-1 px-3 sm:py-2 sm:px-4 rounded transition ease-in-out relative group overflow-hidden flex">
-                  <WebIcon
-                    className="group-hover:translate-y-5 group-hover:translate-x-5 -top-10 -left-10 absolute transition ease-in-out"
-                    width={40}
-                  />
-                  <WebIcon
-                    className="group-hover:-translate-y-5 group-hover:-translate-x-5 -bottom-10 -right-10 absolute transition ease-in-out"
-                    width={40}
-                  />
-                  Φτιάξε Μενού
-                </button>
-              </a>
-              <div className="flex-1" />
-              <Link href="/features">
-                <p className="my-auto cursor-pointer transition duration-300 group text-accent hover:scale-105">
-                  Μάθε περισσότερα
-                  <span className="block max-w-0 group-hover:max-w-full transition-all duration-100 h-[0.5px] bg-black -translate-y-[5px]"></span>
-                </p>
-              </Link>
-              {/* <a className="my-auto hover:underline" href="/features">Μάθε περισσότερα</a> */}
+      <div className="min-h-screen">
+        <DashNav />
+        <main>
+          <div className="flex p-4">
+            <div className="mx-auto max-w-5xl w-full">
+              <h1 className="text-2xl font-semibold">Γεία σας, {email}</h1>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 pt-5">
+                {shops &&
+                  shops.map((shop, i) => (
+                    <Link
+                      href={`/dash/${shop.pathname}`}
+                      key={i}
+                      className="rounded-lg p-5 border border-gray-300 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-500"
+                    >
+                      <h1 className="font-medium">
+                        {shop.shop_name.map((e) => e.text).join("/")}
+                      </h1>
+                    </Link>
+                  ))}
+                <Link
+                  href={`/dash/new-shop`}
+                  className="rounded-lg p-5 border border-gray-300 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-500 flex flex-row gap-2 group"
+                >
+                  <PlusIcon width={20} className="group-hover:rotate-180 transition ease-in-out duration-300"/>
+                  <h1 className="font-medium">
+                    Νέο μαγαζί
+                  </h1>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
       <BigFooter />
     </>
   );
