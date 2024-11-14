@@ -1,7 +1,6 @@
 "use client";
 import BigFooter from "@/components/footer/big-footer";
 import DashNav from "@/components/navbar/dash-nav";
-import WebIcon from "@/icons/web";
 import Link from "next/link";
 import { useAuthState } from "./auth-state";
 import PlusIcon from "@/icons/plus";
