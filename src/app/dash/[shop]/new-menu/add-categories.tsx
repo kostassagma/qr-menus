@@ -2,6 +2,7 @@
 import { FC, useEffect, useState } from "react";
 import { useNewMenuState } from "./new-menu-state";
 import GridIcon from "@/icons/grid";
+import { SUPPORTED_LANGUAGES } from "@/utils/constants";
 
 const AddCategories: FC = () => {
   const { categories, addCategory } = useNewMenuState();
@@ -12,7 +13,7 @@ const AddCategories: FC = () => {
         &#8594; Τώρα, εισάγετε τις κατηγορίες με τα αντίστοιχα προιόντα τους:
       </h1>
       <div
-        className="flex flex-col relative overflow-hidden"
+        className="flex flex-col relative overflow-visible"
         style={{
           height: categories.reduce((a, b) => a + b.height, 0) + 40,
           transition: "height 0.5s ease-in-out",
@@ -44,11 +45,13 @@ interface CategoryProps {
 const Category: FC<CategoryProps> = ({ index }) => {
   const { reOrder, categories, dragging, drag } = useNewMenuState();
   const { order } = categories[index];
-  const [dragged, setDragged] = useState(false);
-  const [top, setTop] = useState(order * 50);
+  const dragged = dragging ? dragging.oldOrder === order : false;
+  const [top, setTop] = useState(
+    categories.filter((e) => e.order < order).reduce((a, b) => a + b.height, 0)
+  );
 
   useEffect(() => {
-    function onMouseMove(e: MouseEvent) {
+    if (dragged) {function onMouseMove(e: MouseEvent) {
       if (dragged) {
         setTop((old) => old + e.movementY);
         let current = 0;
@@ -65,41 +68,38 @@ const Category: FC<CategoryProps> = ({ index }) => {
 
     document.addEventListener("mousemove", onMouseMove);
 
-    return () => document.removeEventListener("mousemove", onMouseMove);
+    return () => document.removeEventListener("mousemove", onMouseMove);}
   }, [dragged, top, drag, categories, order]);
 
   useEffect(() => {
-    function onMouseUp() {
-      if (dragged) {
-        let current = 0;
-        for (let i = 0; i < categories.length; i++) {
-          current += categories[i].height / 2;
-          if (current > top) {
-            reOrder(order, i);
-            setDragged(false);
-            return;
-          }
-          current += categories[i].height / 2;
+    if (dragged) {
+      function onMouseUp() {
+        if (dragged) {
+          reOrder(dragging!.oldOrder, dragging!.newOrder);
         }
-        setDragged(false);
-        reOrder(order, categories.length - 1);
       }
+
+      window.addEventListener("mouseup", onMouseUp);
+
+      return () => window.removeEventListener("mouseup", onMouseUp);
     }
-
-    window.addEventListener("mouseup", onMouseUp);
-
-    return () => window.removeEventListener("mouseup", onMouseUp);
   }, [dragged, top, order, categories, reOrder]);
 
   useEffect(() => {
     if (dragged) return;
 
-    let topToBeAssigned = 50 * order;
+    let topToBeAssigned = categories
+      .filter((e) => e.order < order)
+      .reduce((a, b) => a + b.height, 0);
     if (dragging) {
       if (dragging.newOrder >= order && order > dragging.oldOrder) {
-        topToBeAssigned -= 50;
+        topToBeAssigned -= categories.find(
+          (e) => e.order == dragging.oldOrder
+        )!.height;
       } else if (dragging.newOrder <= order && order < dragging.oldOrder) {
-        topToBeAssigned += 50;
+        topToBeAssigned += categories.find(
+          (e) => e.order == dragging.oldOrder
+        )!.height;
       }
     }
     setTop(topToBeAssigned);
@@ -114,17 +114,46 @@ const Category: FC<CategoryProps> = ({ index }) => {
       }`}
       style={{ top }}
     >
-      {index}:{order}
+      <div className="flex-1">
+        {["el", "en"].map((symbol) => (
+          <div key={symbol}>
+            <label>
+              {(() => {
+                for (let i = 0; i < SUPPORTED_LANGUAGES.length; i++) {
+                  if (SUPPORTED_LANGUAGES[i].symbol == symbol)
+                    return SUPPORTED_LANGUAGES[i].label;
+                }
+              })()}
+              :
+            </label>
+            <input
+              // value={menu_name.filter((e) => e.locale == symbol)[0].text}
+              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+              id="link"
+              type="text"
+              name={`name-${symbol}`}
+              placeholder={symbol}
+              lang={symbol}
+              required={true}
+              onSubmit={(e) => e.preventDefault()}
+              onChange={(e) => {
+                e.preventDefault();
+                // editName(symbol, e.target.value);
+              }}
+            />
+          </div>
+        ))}
+      </div>
       <button
         onMouseDown={(e) => {
           e.preventDefault();
           console.log("mouse down");
-          setDragged(true);
+          drag(order, order);
         }}
         onTouchStart={(e) => {
           e.preventDefault();
           console.log("touch start");
-          setDragged(true);
+          drag(order, order);
         }}
         className={`my-auto ml-auto cursor-pointer ${
           dragged ? "text-gray-700" : "text-gray-400 hover:text-gray-700"

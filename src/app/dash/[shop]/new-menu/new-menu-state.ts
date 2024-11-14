@@ -67,7 +67,7 @@ export const useNewMenuState = create<NewMenuStateType>()((set) => ({
       categories: [
         ...state.categories,
         {
-          height: 50,
+          height: 140,
           name: state.supported_languages.map((lang) => ({
             locale: lang,
             text: "",
