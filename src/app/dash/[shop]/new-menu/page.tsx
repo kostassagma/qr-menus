@@ -1,5 +1,7 @@
 import BigFooter from "@/components/footer/big-footer";
 import DashNav from "@/components/navbar/dash-nav";
+import SetName from "./set-name";
+import AddCategories from "./add-categories";
 
 export default async function ShopPage({
   params,
@@ -12,8 +14,10 @@ export default async function ShopPage({
     <>
       <div className="min-h-screen flex flex-col">
         <DashNav shop={shop} />
-        <main className="max-w-5xl mx-auto w-full flex flex-col p-5 gap-5 sm:flex-row">
-          Hello
+        <main className="p-4 max-w-5xl w-full mx-auto flex flex-col gap-5 py-10">
+          <h1 className="text-2xl mb-4 font-bold">Δημιουργία Νέου Καταλόγου</h1>
+          <SetName />
+          <AddCategories />
         </main>
       </div>
       <BigFooter />
