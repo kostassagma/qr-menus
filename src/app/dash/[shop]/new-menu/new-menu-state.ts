@@ -120,11 +120,6 @@ export const useNewMenuState = create<NewMenuStateType>()((set) => ({
   dragging: undefined,
   editCategoryName: (order: number, lang: string, target: string) => {
     set((state) => ({
-      menu_name: [
-        ...state.menu_name.map((e) =>
-          e.locale == lang ? { ...e, text: target } : e
-        ),
-      ],
       categories: state.categories.map((e) =>
         e.order == order
           ? {
