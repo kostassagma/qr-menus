@@ -15,6 +15,7 @@ export interface ShopStateType {
 export interface AuthStateType {
   email?: string;
   shops?: ShopStateType[];
+  refresh: () => Promise<void>;
 }
 
 export const useAuthState = create<AuthStateType>()((set) => {
@@ -32,13 +33,13 @@ export const useAuthState = create<AuthStateType>()((set) => {
     `);
 
     if (!shops.data) return;
-console.log(shops);
+    console.log(shops);
 
     set({
       email: data.user!.email,
       // @ts-expect-error bc e.supported_languages is JSON and shops expects string[]
       shops: shops.data.map((e) => ({
-        pathname:e.pathname,
+        pathname: e.pathname,
         supported_languages: e.supported_languages,
         shop_name: e.shop_names.map((e) => ({
           locale: e.locale,
@@ -47,5 +48,35 @@ console.log(shops);
       })),
     });
   })();
-  return {};
+  return {
+    refresh: async () => {
+      const supabase = await createBrowserClient();
+      const { data } = await supabase.auth.getUser();
+      if (!data.user) return;
+      const shops = await supabase.from("shops").select(`
+        pathname,
+        supported_languages,
+        shop_names (
+          locale,
+          text
+        )
+      `);
+
+      if (!shops.data) return;
+      console.log(shops);
+
+      set({
+        email: data.user!.email,
+        // @ts-expect-error bc e.supported_languages is JSON and shops expects string[]
+        shops: shops.data.map((e) => ({
+          pathname: e.pathname,
+          supported_languages: e.supported_languages,
+          shop_name: e.shop_names.map((e) => ({
+            locale: e.locale,
+            text: e.text,
+          })),
+        })),
+      });
+    },
+  };
 });

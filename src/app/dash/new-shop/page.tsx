@@ -8,9 +8,11 @@ import { ShopNameType, useNewShopState } from "./new-shop-state";
 import toast from "react-hot-toast";
 import { createBrowserClient } from "@/utils/supabase/client";
 import { redirect } from "next/navigation";
+import { useAuthState } from "../auth-state";
 
 export default function NewShop() {
   const { pathname, supported_languages, shop_name } = useNewShopState();
+  const { refresh } = useAuthState();
 
   async function createShop() {
     if (
@@ -71,6 +73,8 @@ export default function NewShop() {
         shop: data[0].id,
       }))
     );
+
+    await refresh();
 
     return redirect(`/dash/${pathname}`);
   }
