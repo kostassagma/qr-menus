@@ -41,6 +41,8 @@ export interface NewMenuStateType {
     newOrder: number;
   };
   drag: (oldOrder: number, newOrder: number) => void;
+  deleteCategory: (order: number) => void;
+  editCategoryName: (order: number, lang: string, target: string) => void;
 }
 
 export const useNewMenuState = create<NewMenuStateType>()((set) => ({
@@ -108,7 +110,33 @@ export const useNewMenuState = create<NewMenuStateType>()((set) => ({
       dragging: { newOrder, oldOrder },
     }));
   },
+  deleteCategory: (order: number) => {
+    set((state) => ({
+      categories: state.categories
+        .filter((e) => e.order != order)
+        .map((e) => ({ ...e, order: e.order > order ? e.order - 1 : e.order })),
+    }));
+  },
   dragging: undefined,
+  editCategoryName: (order: number, lang: string, target: string) => {
+    set((state) => ({
+      menu_name: [
+        ...state.menu_name.map((e) =>
+          e.locale == lang ? { ...e, text: target } : e
+        ),
+      ],
+      categories: state.categories.map((e) =>
+        e.order == order
+          ? {
+              ...e,
+              name: e.name.map((e) =>
+                e.locale == lang ? { ...e, text: target } : e
+              ),
+            }
+          : e
+      ),
+    }));
+  },
 }));
 
 function calculateHeight(langs: number, items: number) {

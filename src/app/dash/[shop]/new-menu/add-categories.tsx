@@ -3,9 +3,12 @@ import { FC, useEffect, useState } from "react";
 import { useNewMenuState } from "./new-menu-state";
 import GridIcon from "@/icons/grid";
 import { SUPPORTED_LANGUAGES } from "@/utils/constants";
+import TrashIcon from "@/icons/trash";
 
 const AddCategories: FC = () => {
   const { categories, addCategory } = useNewMenuState();
+
+  console.log(categories);
 
   return (
     <div>
@@ -43,13 +46,21 @@ interface CategoryProps {
 }
 
 const Category: FC<CategoryProps> = ({ index }) => {
-  const { reOrder, categories, dragging, drag } = useNewMenuState();
-  const { order } = categories[index];
+  const {
+    reOrder,
+    categories,
+    dragging,
+    drag,
+    deleteCategory,
+    editCategoryName,
+  } = useNewMenuState();
+  const { order, name } = categories[index];
   const dragged = dragging ? dragging.oldOrder === order : false;
   const [top, setTop] = useState(
     categories.filter((e) => e.order < order).reduce((a, b) => a + b.height, 0)
   );
 
+  // Mouse Move
   useEffect(() => {
     if (dragged) {
       function onMouseMove(e: MouseEvent) {
@@ -73,20 +84,20 @@ const Category: FC<CategoryProps> = ({ index }) => {
     }
   }, [dragged, top, drag, categories, order]);
 
+  // Mouse up
   useEffect(() => {
-    if (dragged) {
-      function onMouseUp() {
-        if (dragged) {
-          reOrder(dragging!.oldOrder, dragging!.newOrder);
-        }
+    function onMouseUp() {
+      if (dragged) {
+        reOrder(dragging!.oldOrder, dragging!.newOrder);
       }
-
-      window.addEventListener("mouseup", onMouseUp);
-
-      return () => window.removeEventListener("mouseup", onMouseUp);
     }
+
+    window.addEventListener("mouseup", onMouseUp);
+
+    return () => window.removeEventListener("mouseup", onMouseUp);
   }, [dragged, top, order, categories, reOrder]);
 
+  // Calculate top
   useEffect(() => {
     if (dragged) return;
 
@@ -132,7 +143,7 @@ const Category: FC<CategoryProps> = ({ index }) => {
               :
             </label>
             <input
-              // value={menu_name.filter((e) => e.locale == symbol)[0].text}
+              value={name.filter((e) => e.locale == symbol)[0].text}
               className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
               id="link"
               type="text"
@@ -143,7 +154,7 @@ const Category: FC<CategoryProps> = ({ index }) => {
               onSubmit={(e) => e.preventDefault()}
               onChange={(e) => {
                 e.preventDefault();
-                // editName(symbol, e.target.value);
+                editCategoryName(order, symbol, e.target.value);
               }}
             />
           </div>
@@ -160,23 +171,37 @@ const Category: FC<CategoryProps> = ({ index }) => {
           Προσθήκη προιόντος
         </button>
       </div>
-      <button
-        onMouseDown={(e) => {
-          e.preventDefault();
-          console.log("mouse down");
-          drag(order, order);
-        }}
-        onTouchStart={(e) => {
-          e.preventDefault();
-          console.log("touch start");
-          drag(order, order);
-        }}
-        className={`my-auto ml-auto cursor-pointer ${
-          dragged ? "text-gray-700" : "text-gray-400 hover:text-gray-700"
-        } transition-all ease-in-out`}
-      >
-        <GridIcon width={20} />
-      </button>
+      <div className="flex flex-col gap-2 my-auto">
+        <button
+          onMouseDown={(e) => {
+            e.preventDefault();
+            console.log("mouse down");
+            drag(order, order);
+          }}
+          onTouchStart={(e) => {
+            e.preventDefault();
+            console.log("touch start");
+            drag(order, order);
+          }}
+          className={`my-auto ml-auto cursor-pointer ${
+            dragged ? "text-gray-700" : "text-gray-400 hover:text-gray-700"
+          } transition-all ease-in-out`}
+        >
+          <GridIcon width={20} />
+        </button>
+
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            console.log(order);
+
+            deleteCategory(order);
+          }}
+          className={`my-auto cursor-pointer text-gray-400 hover:text-gray-700 transition-all ease-in-out`}
+        >
+          <TrashIcon width={20} />
+        </button>
+      </div>
     </div>
   );
 };
