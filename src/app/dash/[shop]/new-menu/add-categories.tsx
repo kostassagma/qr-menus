@@ -51,24 +51,26 @@ const Category: FC<CategoryProps> = ({ index }) => {
   );
 
   useEffect(() => {
-    if (dragged) {function onMouseMove(e: MouseEvent) {
-      if (dragged) {
-        setTop((old) => old + e.movementY);
-        let current = 0;
-        for (let i = 0; i < categories.length; i++) {
-          current += categories[i].height / 2;
-          if (current > top) {
-            drag(order, i);
-            return;
+    if (dragged) {
+      function onMouseMove(e: MouseEvent) {
+        if (dragged) {
+          setTop((old) => old + e.movementY);
+          let current = 0;
+          for (let i = 0; i < categories.length; i++) {
+            current += categories[i].height / 2;
+            if (current > top) {
+              drag(order, i);
+              return;
+            }
+            current += categories[i].height / 2;
           }
-          current += categories[i].height / 2;
         }
       }
+
+      document.addEventListener("mousemove", onMouseMove);
+
+      return () => document.removeEventListener("mousemove", onMouseMove);
     }
-
-    document.addEventListener("mousemove", onMouseMove);
-
-    return () => document.removeEventListener("mousemove", onMouseMove);}
   }, [dragged, top, drag, categories, order]);
 
   useEffect(() => {
@@ -114,7 +116,10 @@ const Category: FC<CategoryProps> = ({ index }) => {
       }`}
       style={{ top }}
     >
-      <div className="flex-1">
+      <div className="flex-1 flex flex-col">
+        <h2 className="text-lg">
+          &#8658; Αρχικά, εισάγετε το όνομα της κατηγορίας:
+        </h2>
         {["el", "en"].map((symbol) => (
           <div key={symbol}>
             <label>
@@ -143,6 +148,17 @@ const Category: FC<CategoryProps> = ({ index }) => {
             />
           </div>
         ))}
+        <h2 className="text-lg">
+          &#8658; Έπειτα, εισάγετε τα προϊόντα της κατηγορίας:
+        </h2>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+          }}
+          className="bg-accent text-white font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline hover:scale-105 transition ease-in-out mt-auto mx-auto z-10"
+        >
+          Προσθήκη προιόντος
+        </button>
       </div>
       <button
         onMouseDown={(e) => {

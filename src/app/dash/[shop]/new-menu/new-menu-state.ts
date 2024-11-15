@@ -45,7 +45,6 @@ export interface NewMenuStateType {
 
 export const useNewMenuState = create<NewMenuStateType>()((set) => ({
   supported_languages: ["el", "en"],
-  categoriesHeight: 0,
   menu_name: [
     { locale: "el", text: "" },
     { locale: "en", text: "" },
@@ -67,7 +66,7 @@ export const useNewMenuState = create<NewMenuStateType>()((set) => ({
       categories: [
         ...state.categories,
         {
-          height: 140,
+          height: calculateHeight(0, 0),
           name: state.supported_languages.map((lang) => ({
             locale: lang,
             text: "",
@@ -109,5 +108,9 @@ export const useNewMenuState = create<NewMenuStateType>()((set) => ({
       dragging: { newOrder, oldOrder },
     }));
   },
-  dragging: undefined
+  dragging: undefined,
 }));
+
+function calculateHeight(langs: number, items: number) {
+  return 236 + 20;
+}
