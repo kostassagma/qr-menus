@@ -11,20 +11,9 @@ interface CategoryNameType {
   text: string;
 }
 
-interface ItemNameType {
-  locale: string;
-  text: string;
-}
-
-interface ItemType {
-  name: ItemNameType[];
-  order: number;
-}
-
 export interface NewCategoryType {
   name: CategoryNameType[];
   order: number;
-  items: ItemType[];
   height: number;
 }
 
@@ -33,6 +22,8 @@ export interface NewMenuStateType {
   menu_name: MenuNameType[];
   editName: (lang: string, target: string) => void;
   pathname: string;
+  setSupportedLanguages: (langs: string[]) => void;
+  // categories
   categories: NewCategoryType[];
   addCategory: () => void;
   reOrder: (oldOrder: number, newOrder: number) => void;
@@ -46,7 +37,7 @@ export interface NewMenuStateType {
 }
 
 export const useNewMenuState = create<NewMenuStateType>()((set) => ({
-  supported_languages: ["el", "en"],
+  supported_languages: [],
   menu_name: [
     { locale: "el", text: "" },
     { locale: "en", text: "" },
@@ -61,6 +52,7 @@ export const useNewMenuState = create<NewMenuStateType>()((set) => ({
       ],
     }));
   },
+  // categories
   categories: [],
   addCategory: () => {
     set((state) => ({
@@ -68,7 +60,7 @@ export const useNewMenuState = create<NewMenuStateType>()((set) => ({
       categories: [
         ...state.categories,
         {
-          height: calculateHeight(0, 0),
+          height: calculateHeight(state.supported_languages.length),
           name: state.supported_languages.map((lang) => ({
             locale: lang,
             text: "",
@@ -132,8 +124,13 @@ export const useNewMenuState = create<NewMenuStateType>()((set) => ({
       ),
     }));
   },
+  setSupportedLanguages: (langs: string[]) => {
+    set({
+      supported_languages: langs,
+    });
+  },
 }));
 
-function calculateHeight(langs: number, items: number) {
-  return 236 + 20;
+function calculateHeight(langs: number) {
+  return 44 + langs * 62 + 20;
 }

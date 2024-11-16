@@ -8,8 +8,6 @@ import TrashIcon from "@/icons/trash";
 const AddCategories: FC = () => {
   const { categories, addCategory } = useNewMenuState();
 
-  console.log(categories);
-
   return (
     <div>
       <h1 className="text-xl">
@@ -53,6 +51,7 @@ const Category: FC<CategoryProps> = ({ index }) => {
     drag,
     deleteCategory,
     editCategoryName,
+    supported_languages
   } = useNewMenuState();
   const { order, name } = categories[index];
   const dragged = dragging ? dragging.oldOrder === order : false;
@@ -116,7 +115,7 @@ const Category: FC<CategoryProps> = ({ index }) => {
       }
     }
     setTop(topToBeAssigned);
-  }, [order, setTop, dragged, dragging]);
+  }, [order, setTop, dragged, dragging, categories]);
 
   return (
     <div
@@ -129,9 +128,9 @@ const Category: FC<CategoryProps> = ({ index }) => {
     >
       <div className="flex-1 flex flex-col">
         <h2 className="text-lg">
-          &#8658; Αρχικά, εισάγετε το όνομα της κατηγορίας:
+          &#8658; Εισάγετε το όνομα της κατηγορίας:
         </h2>
-        {["el", "en"].map((symbol) => (
+        {supported_languages.map((symbol) => (
           <div key={symbol}>
             <label>
               {(() => {
@@ -159,17 +158,6 @@ const Category: FC<CategoryProps> = ({ index }) => {
             />
           </div>
         ))}
-        <h2 className="text-lg">
-          &#8658; Έπειτα, εισάγετε τα προϊόντα της κατηγορίας:
-        </h2>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-          }}
-          className="bg-accent text-white font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline hover:scale-105 transition ease-in-out mt-auto mx-auto z-10"
-        >
-          Προσθήκη προιόντος
-        </button>
       </div>
       <div className="flex flex-col gap-2 my-auto">
         <button

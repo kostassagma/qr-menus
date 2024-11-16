@@ -4,7 +4,7 @@ import { useNewMenuState } from "./new-menu-state";
 import { SUPPORTED_LANGUAGES } from "@/utils/constants";
 
 const SetName: FC = () => {
-  const { menu_name, editName } = useNewMenuState();
+  const { menu_name, editName, supported_languages } = useNewMenuState();
 
   return (
     <div>
@@ -12,7 +12,7 @@ const SetName: FC = () => {
         &#8594; Αρχικά, εισάγετε τον τίτλο του καταλόγου
       </h1>
       <div className="flex flex-col gap-2">
-        {["el", "en"].map((symbol) => (
+        {supported_languages.map((symbol) => (
           <div key={symbol}>
             <label>
               {(() => {
