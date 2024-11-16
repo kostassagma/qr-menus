@@ -38,10 +38,7 @@ export interface NewMenuStateType {
 
 export const useNewMenuState = create<NewMenuStateType>()((set) => ({
   supported_languages: [],
-  menu_name: [
-    { locale: "el", text: "" },
-    { locale: "en", text: "" },
-  ],
+  menu_name: [],
   pathname: nanoid(),
   editName: (lang: string, target: string) => {
     set((state) => ({
@@ -72,7 +69,10 @@ export const useNewMenuState = create<NewMenuStateType>()((set) => ({
     }));
   },
   reOrder: (oldOrder: number, newOrder: number) => {
-    if (oldOrder == newOrder) return;
+    if (oldOrder == newOrder) {
+      set({ dragging: undefined });
+      return;
+    }
     set((state) => ({
       dragging: undefined,
       categories: state.categories.map((e) => {
@@ -127,6 +127,7 @@ export const useNewMenuState = create<NewMenuStateType>()((set) => ({
   setSupportedLanguages: (langs: string[]) => {
     set({
       supported_languages: langs,
+      menu_name: langs.map((e) => ({ locale: e, text: "" })),
     });
   },
 }));

@@ -17,7 +17,7 @@ const SetLangs: FC<Props> = ({ shop }) => {
     if (!shops) return;
     const shopDetails = shops!.find((e) => e.pathname === shop);
     setSupportedLanguages(shopDetails!.supported_languages);
-  }, [shops]);
+  }, [shops, shop]);
 
   return <></>;
 };

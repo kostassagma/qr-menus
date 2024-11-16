@@ -14,7 +14,7 @@ const AddCategories: FC = () => {
         &#8594; Τώρα, εισάγετε τις κατηγορίες με τα αντίστοιχα προιόντα τους:
       </h1>
       <div
-        className="flex flex-col relative overflow-visible"
+        className="flex flex-col relative overflow-hidden"
         style={{
           height: categories.reduce((a, b) => a + b.height, 0) + 40,
           transition: "height 0.5s ease-in-out",
