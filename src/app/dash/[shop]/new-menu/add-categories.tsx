@@ -94,7 +94,7 @@ const Category: FC<CategoryProps> = ({ index }) => {
     window.addEventListener("mouseup", onMouseUp);
 
     return () => window.removeEventListener("mouseup", onMouseUp);
-  }, [dragged, top, order, categories, reOrder]);
+  }, [dragged, top, order, categories, reOrder, dragging]);
 
   // Calculate top
   useEffect(() => {
