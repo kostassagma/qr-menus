@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { nanoid } from "nanoid";
 
-interface MenuNameType {
+export interface MenuNameType {
   locale: string;
   text: string;
 }

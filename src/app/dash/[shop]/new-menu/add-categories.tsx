@@ -51,7 +51,7 @@ const Category: FC<CategoryProps> = ({ index }) => {
     drag,
     deleteCategory,
     editCategoryName,
-    supported_languages
+    supported_languages,
   } = useNewMenuState();
   const { order, name } = categories[index];
   const dragged = dragging ? dragging.oldOrder === order : false;
@@ -127,9 +127,7 @@ const Category: FC<CategoryProps> = ({ index }) => {
       style={{ top }}
     >
       <div className="flex-1 flex flex-col">
-        <h2 className="text-lg">
-          &#8658; Εισάγετε το όνομα της κατηγορίας:
-        </h2>
+        <h2 className="text-lg">&#8658; Εισάγετε το όνομα της κατηγορίας:</h2>
         {supported_languages.map((symbol) => (
           <div key={symbol}>
             <label>
@@ -161,6 +159,7 @@ const Category: FC<CategoryProps> = ({ index }) => {
       </div>
       <div className="flex flex-col gap-2 my-auto">
         <button
+          onClick={(e) => e.preventDefault()}
           onMouseDown={(e) => {
             e.preventDefault();
             console.log("mouse down");
