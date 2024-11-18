@@ -49,17 +49,36 @@ export default function NewMenuPage({ shop }: { shop: string }) {
       return err;
     }
 
-    const insertedMenu = await supabase.from("menus").insert({
-      pathname,
-      shop: shopQuery.data[0].id,
-    });
+    const insertedMenu = await supabase
+      .from("menus")
+      .insert({
+        pathname,
+        shop: shopQuery.data[0].id,
+      })
+      .select("id");
 
-    console.log(insertedMenu.error);
+    if (insertedMenu.error || !insertedMenu.data) return;
+
+    await supabase.from("menu_names").insert(
+      //@ts-expect-error because locale is str but supabase expects el|en
+      menu_name.map((e) => ({
+        locale: e.locale,
+        text: e.text,
+        menu: insertedMenu.data[0].id,
+      }))
+    );
     
 
-    if (insertedMenu.error) return;
+    await supabase.from("menu_names").insert(
+      //@ts-expect-error because locale is str but supabase expects el|en
+      menu_name.map((e) => ({
+        locale: e.locale,
+        text: e.text,
+        menu: insertedMenu.data[0].id,
+      }))
+    );
 
-    redirect(`/dash/${shop}/menus`)
+    redirect(`/dash/${shop}/menus`);
 
     // console.log(insertedMenu.data![0].id);
   }
