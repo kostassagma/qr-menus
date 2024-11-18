@@ -8,11 +8,6 @@ const GoogleOAuthButton: FC = () => {
   return (
     <button
       onClick={async () => {
-        console.log(
-          process.env.NODE_ENV === "development"
-            ? `http://localhost:3000/auth/callback`
-            : "https://qr-menus-eight/auth/callback"
-        );
 
         const supabase = await createBrowserClient();
         supabase.auth.signInWithOAuth({
@@ -21,7 +16,7 @@ const GoogleOAuthButton: FC = () => {
             redirectTo:
               process.env.NODE_ENV === "development"
                 ? `http://localhost:3000/auth/callback`
-                : "https://qr-menus-eight/auth/callback",
+                : "https://qr-menus-eight.vercel.app/auth/callback",
           },
         });
       }}
