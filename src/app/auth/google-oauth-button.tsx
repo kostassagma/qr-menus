@@ -8,11 +8,20 @@ const GoogleOAuthButton: FC = () => {
   return (
     <button
       onClick={async () => {
+        console.log(
+          process.env.NODE_ENV === "development"
+            ? `http://localhost:3000/auth/callback`
+            : "https://qr-menus-eight/auth/callback"
+        );
+
         const supabase = await createBrowserClient();
         supabase.auth.signInWithOAuth({
           provider: "google",
           options: {
-            redirectTo: process.env.NODE_ENV==="development"?`http://localhost:3000/auth/callback`:"https://qr-menus-eight/auth/callback",
+            redirectTo:
+              process.env.NODE_ENV === "development"
+                ? `http://localhost:3000/auth/callback`
+                : "https://qr-menus-eight/auth/callback",
           },
         });
       }}
