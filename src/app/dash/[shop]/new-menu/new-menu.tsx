@@ -71,7 +71,7 @@ export default function NewMenuPage({ shop }: { shop: string }) {
 
     await supabase.from("menu_names").insert(
       //@ts-expect-error because locale is str but supabase expects el|en
-      menu_name.map((e) => ({
+      name.map((e) => ({
         locale: e.locale,
         text: e.text,
         menu: insertedMenu.data[0].id,
