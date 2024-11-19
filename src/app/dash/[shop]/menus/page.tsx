@@ -1,5 +1,4 @@
 import Link from "next/link";
-import ShopLayout from "../shop-layout";
 import PlusIcon from "@/icons/plus";
 import { createServerClient } from "@/utils/supabase/server";
 
@@ -14,7 +13,8 @@ export default async function ShopPage({
 
   const shopQuery = await supabase
     .from("shops")
-    .select(`
+    .select(
+      `
       supported_languages,
       shop_names (
         locale,
@@ -25,40 +25,47 @@ export default async function ShopPage({
           locale,
           text
         ),
-        pathname
-        
+        pathname,
+        categories (
+          category_name (
+            locale, text
+          )
+        )
       )
-    `)
-    .eq("pathname", shop).limit(1);
+    `
+    )
+    .eq("pathname", shop)
+    .limit(1);
 
-  // console.log(shopQuery.data[0]);
+  console.log(shopQuery.data);
 
   return (
-    <ShopLayout tab={1} shop={shop}>
-      <div className="flex-1">
-        <h2 className="text-xl mb-3">Οι κατάλογοι του μαγαζιού:</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-full">
-          {shopQuery.data![0].menus.map((menu, i) => (
-            <Link
-              href={`/dash/${shop}/menus/${menu.pathname}`}
-              key={i}
-              className="rounded-lg p-5 border border-gray-300 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-500"
-            >
-              {menu.menu_names.map(e=>e.text).join("/")}
-            </Link>
-          ))}
+    <div className="flex-1 flex flex-col gap-3 w-full">
+      <h2 className="text-xl">Οι κατάλογοι του μαγαζιού:</h2>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-full">
+        {shopQuery.data![0].menus.map((menu, i) => (
           <Link
-            href={`/dash/${shop}/new-menu`}
-            className="rounded-lg p-5 border border-gray-300 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-500 flex flex-row gap-2 group"
+            href={`/dash/${shop}/menus/${menu.pathname}`}
+            key={i}
+            className="rounded-lg p-5 border border-gray-300 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-500 w-full"
           >
-            <PlusIcon
-              width={20}
-              className="group-hover:rotate-180 transition ease-in-out duration-300"
-            />
-            <h1 className="font-medium">Νέος κατάλογος</h1>
+            <h2 className="text-xl">
+              {menu.menu_names.map((e) => e.text).join("/")}
+            </h2>
+            <p>{menu.categories.length === 0 ? "" : ""}</p>
           </Link>
-        </div>
+        ))}
       </div>
-    </ShopLayout>
+      <Link
+        href={`/dash/${shop}/new-menu`}
+        className="mx-auto rounded-lg p-5 border border-gray-300 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-500 flex flex-row gap-2 group"
+      >
+        <PlusIcon
+          width={20}
+          className="group-hover:rotate-180 transition ease-in-out duration-300"
+        />
+        <h1 className="font-medium">Νέος κατάλογος</h1>
+      </Link>
+    </div>
   );
 }

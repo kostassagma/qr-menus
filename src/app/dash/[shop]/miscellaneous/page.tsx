@@ -1,4 +1,3 @@
-import ShopLayout from "../shop-layout";
 
 export default async function ShopPage({
   params,
@@ -7,5 +6,5 @@ export default async function ShopPage({
 }) {
   const shop = (await params).shop;
 
-  return <ShopLayout tab={0} shop={shop}>γενικά</ShopLayout>;
+  return <div>γενικά</div>;
 }
