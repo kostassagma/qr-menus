@@ -37,8 +37,6 @@ export default async function ShopPage({
     .eq("pathname", shop)
     .limit(1);
 
-  console.log(shopQuery.data);
-
   return (
     <div className="flex-1 flex flex-col gap-3 w-full">
       <h2 className="text-xl">Οι κατάλογοι του μαγαζιού:</h2>
@@ -49,10 +47,13 @@ export default async function ShopPage({
             key={i}
             className="rounded-lg p-5 border border-gray-300 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-500 w-full"
           >
-            <h2 className="text-xl">
+            <h2 className="text-xl font-semibold">
               {menu.menu_names.map((e) => e.text).join("/")}
             </h2>
-            <p>{menu.categories.length === 0 ? "" : ""}</p>
+            <p>Αυτός ο κατάλογος έχει: {menu.categories.length} κατηγορίες</p>
+            <p className="italic text-xs">
+              Κάντε κλικ για να επεξεργαστείτε τις κατηγορίες και τα αντίστοιχα προϊόντα τους.
+            </p>
           </Link>
         ))}
       </div>

@@ -1,17 +1,17 @@
 "use client";
 import { FC, useEffect, useState } from "react";
-import { useNewMenuState } from "./new-menu-state";
 import GridIcon from "@/icons/grid";
 import { SUPPORTED_LANGUAGES } from "@/utils/constants";
 import TrashIcon from "@/icons/trash";
+import { useEditCategoriesState } from "./edit-categories-state";
 
 const AddCategories: FC = () => {
-  const { categories, addCategory } = useNewMenuState();
+  const { categories, addCategory } = useEditCategoriesState();
 
   return (
     <div>
       <h1 className="text-xl">
-        &#8594; Τώρα, εισάγετε τις κατηγορίες με τα αντίστοιχα προιόντα τους:
+        &#8594; Εισάγετε τις κατηγορίες με τα αντίστοιχα προιόντα τους:
       </h1>
       <div
         className="flex flex-col relative overflow-hidden"
@@ -52,7 +52,7 @@ const Category: FC<CategoryProps> = ({ index }) => {
     deleteCategory,
     editCategoryName,
     supported_languages,
-  } = useNewMenuState();
+  } = useEditCategoriesState();
   const { order, name } = categories[index];
   const dragged = dragging ? dragging.oldOrder === order : false;
   const [top, setTop] = useState(
