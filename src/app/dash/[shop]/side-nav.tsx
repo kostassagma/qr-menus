@@ -14,7 +14,7 @@ const SideNav: FC<Props> = ({ tab, shopPathname }) => {
     <ul className="flex flex-row sm:flex-col gap-1 relative z-10 overflow-x-scroll overflow-y-hidden sm:overflow-auto pb-1 sm:pb-0" style={{
       scrollbarWidth: "none"
     }}>
-      {["miscellaneous", "menus", "billing", "other"].map((e: string, i) => (
+      {["miscellaneous", "menus", "items", "billing", "other"].map((e: string, i) => (
         <Link
           href={`/dash/${shopPathname}/${e}`}
           key={i}
@@ -50,5 +50,6 @@ const labels = {
   miscellaneous: "Γενικά",
   menus: "Κατάλογοι",
   billing: "Χρεώσεις",
+  items: "Προϊόντα",
   other: "Άλλες Ρυθμίσεις",
 };
