@@ -14,12 +14,15 @@ const DashNav: FC<Props> = ({ shop }) => {
   const currentShop = shops ? shops.filter((e) => e.pathname == shop)[0] : null;
   const [expanded, setExpanded] = useState(false);
 
+  console.log(shops);
+  
+
   return (
     <nav className="flex p-2 border-b border-gray-300 gap-3 justify-center sticky top-0 backdrop-blur-2xl z-50 w-full">
       <div className="flex max-w-7xl gap-3 w-full">
         {shop && (
           <div
-            className={`flex flex-row gap-2 group cursor-pointer transition-all ease-in-out mr-auto relative overflow-y-visible w-full sm:max-w-96`}
+            className={`flex flex-row gap-2 group cursor-pointer transition-all ease-in-out mr-auto relative overflow-y-visible max-w-72 sm:max-w-96`}
           >
             <div
               className={`flex flex-row gap-2 group cursor-pointer border ${
@@ -44,7 +47,7 @@ const DashNav: FC<Props> = ({ shop }) => {
               />
             </div>
             <div
-              className={`absolute top-0 z-20 overflow-hidden w-full rounded-md ${
+              className={`absolute top-full z-20 overflow-hidden w-full ${
                 expanded ? "h-auto" : "h-0"
               }`}
               style={{ transition: "height 3s ease-in-out" }}
