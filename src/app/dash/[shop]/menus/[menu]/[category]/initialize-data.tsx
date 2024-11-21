@@ -20,7 +20,7 @@ const InitializeData: FC<Props> = ({ items, langs, categoryId }) => {
 
   useEffect(() => {
     initializeData(categoryId, langs, items);
-  }, [categoryId, langs, initializeData]);
+  }, [categoryId, langs, initializeData, items]);
 
   return <></>;
 };
