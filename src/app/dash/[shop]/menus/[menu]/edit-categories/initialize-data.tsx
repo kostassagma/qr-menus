@@ -7,7 +7,7 @@ interface Props {
   shop: string;
   menuId: number;
   categories: {
-    order: number;
+    category_order: number;
     id: number;
     category_name: {
       locale: "en" | "gr" | "el";
@@ -18,9 +18,7 @@ interface Props {
 
 const InitializeData: FC<Props> = ({ shop, categories, menuId }) => {
   const { shops } = useAuthState();
-  const { initializeData, supported_languages } = useEditCategoriesState();
-
-  console.log(supported_languages);
+  const { initializeData } = useEditCategoriesState();
 
   useEffect(() => {
       if (!shops) return;

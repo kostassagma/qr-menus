@@ -3,41 +3,41 @@ import { FC, useEffect, useState } from "react";
 import GridIcon from "@/icons/grid";
 import { SUPPORTED_LANGUAGES } from "@/utils/constants";
 import TrashIcon from "@/icons/trash";
-import { useEditCategoriesState } from "./edit-categories-state";
+import { useEditItemsState } from "./edit-items-state";
 
-const AddCategories: FC = () => {
-  const { categories, addCategory } = useEditCategoriesState();
+const AddItems: FC = () => {
+  const { items, addItem } = useEditItemsState();
 
   return (
     <div>
       <h1 className="text-xl">
-        &#8594; Εισάγετε τις κατηγορίες με τα αντίστοιχα προιόντα τους:
+        &#8594; Εισάγετε τα προιόντα αυτής της κατηγορίας:
       </h1>
       <div
         className="flex flex-col relative overflow-hidden"
         style={{
-          height: categories.reduce((a, b) => a + b.height, 0) + 40,
+          height: items.reduce((a, b) => a + b.height, 0) + 40,
           transition: "height 0.5s ease-in-out",
         }}
       >
-        {categories.map((_, i) => (
+        {items.map((_, i) => (
           <Category key={i} index={i} />
         ))}
         <button
           onClick={(e) => {
             e.preventDefault();
-            addCategory();
+            addItem();
           }}
           className="bg-accent text-white font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline hover:scale-105 transition ease-in-out mt-auto mx-auto z-10"
         >
-          Προσθήκη Κατηγορίας
+          Προσθήκη Προιόντος
         </button>
       </div>
     </div>
   );
 };
 
-export default AddCategories;
+export default AddItems;
 
 interface CategoryProps {
   index: number;
@@ -46,17 +46,17 @@ interface CategoryProps {
 const Category: FC<CategoryProps> = ({ index }) => {
   const {
     reOrder,
-    categories,
+    items,
     dragging,
     drag,
-    deleteCategory,
-    editCategoryName,
+    deleteItem,
+    editItemName,
     supported_languages,
-  } = useEditCategoriesState();
-  const { category_order, name } = categories[index];
-  const dragged = dragging ? dragging.oldOrder === category_order : false;
+  } = useEditItemsState();
+  const { item_order, name } = items[index];
+  const dragged = dragging ? dragging.oldOrder === item_order : false;
   const [top, setTop] = useState(
-    categories.filter((e) => e.category_order < category_order).reduce((a, b) => a + b.height, 0)
+    items.filter((e) => e.item_order < item_order).reduce((a, b) => a + b.height, 0)
   );
 
   // Mouse Move
@@ -66,13 +66,15 @@ const Category: FC<CategoryProps> = ({ index }) => {
         if (dragged) {
           setTop((old) => old + e.movementY);
           let current = 0;
-          for (let i = 0; i < categories.length; i++) {
-            current += categories[i].height / 2;
+          for (let i = 0; i < items.length; i++) {
+            current += items[i].height / 2;
             if (current > top) {
-              drag(category_order, i);
+              drag(item_order, i);
+              console.log(dragging);
+              
               return;
             }
-            current += categories[i].height / 2;
+            current += items[i].height / 2;
           }
         }
       }
@@ -81,7 +83,7 @@ const Category: FC<CategoryProps> = ({ index }) => {
 
       return () => document.removeEventListener("mousemove", onMouseMove);
     }
-  }, [dragged, top, drag, categories, category_order]);
+  }, [dragged, top, drag, items, item_order, dragging]);
 
   // Mouse up
   useEffect(() => {
@@ -94,31 +96,28 @@ const Category: FC<CategoryProps> = ({ index }) => {
     window.addEventListener("mouseup", onMouseUp);
 
     return () => window.removeEventListener("mouseup", onMouseUp);
-  }, [dragged, top, category_order, categories, reOrder, dragging]);
+  }, [dragged, top, item_order, items, reOrder, dragging]);
 
   // Calculate top
   useEffect(() => {
     if (dragged) return;
 
-    let topToBeAssigned = categories
-      .filter((e) => e.category_order < category_order)
+    let topToBeAssigned = items
+      .filter((e) => e.item_order < item_order)
       .reduce((a, b) => a + b.height, 0);
     if (dragging) {
-      if (dragging.newOrder >= category_order && category_order > dragging.oldOrder) {
-        topToBeAssigned -= categories.find(
-          (e) => e.category_order == dragging.oldOrder
+      if (dragging.newOrder >= item_order && item_order > dragging.oldOrder) {
+        topToBeAssigned -= items.find(
+          (e) => e.item_order == dragging.oldOrder
         )!.height;
-      } else if (dragging.newOrder <= category_order && category_order < dragging.oldOrder) {
-        topToBeAssigned += categories.find(
-          (e) => e.category_order == dragging.oldOrder
+      } else if (dragging.newOrder <= item_order && item_order < dragging.oldOrder) {
+        topToBeAssigned += items.find(
+          (e) => e.item_order == dragging.oldOrder
         )!.height;
       }
     }
     setTop(topToBeAssigned);
-  }, [category_order, setTop, dragged, dragging, categories]);
-
-  console.log(categories);
-  
+  }, [item_order, setTop, dragged, dragging, items]);
 
   return (
     <div
@@ -130,7 +129,7 @@ const Category: FC<CategoryProps> = ({ index }) => {
       style={{ top }}
     >
       <div className="flex-1 flex flex-col">
-        <h2 className="text-lg">&#8658; Εισάγετε το όνομα της κατηγορίας:</h2>
+        <h2 className="text-lg">&#8658; Εισάγετε το όνομα του προϊόντος:</h2>
         {supported_languages.map((symbol) => (
           <div key={symbol}>
             <label>
@@ -154,7 +153,7 @@ const Category: FC<CategoryProps> = ({ index }) => {
               onSubmit={(e) => e.preventDefault()}
               onChange={(e) => {
                 e.preventDefault();
-                editCategoryName(category_order, symbol, e.target.value);
+                editItemName(item_order, symbol, e.target.value);
               }}
             />
           </div>
@@ -166,12 +165,12 @@ const Category: FC<CategoryProps> = ({ index }) => {
           onMouseDown={(e) => {
             e.preventDefault();
             console.log("mouse down");
-            drag(category_order, category_order);
+            drag(item_order, item_order);
           }}
           onTouchStart={(e) => {
             e.preventDefault();
             console.log("touch start");
-            drag(category_order, category_order);
+            drag(item_order, item_order);
           }}
           className={`my-auto ml-auto cursor-pointer ${
             dragged ? "text-gray-700" : "text-gray-400 hover:text-gray-700"
@@ -184,7 +183,7 @@ const Category: FC<CategoryProps> = ({ index }) => {
           onClick={(e) => {
             e.preventDefault();
 
-            deleteCategory(category_order);
+            deleteItem(item_order);
           }}
           className={`my-auto cursor-pointer text-gray-400 hover:text-gray-700 transition-all ease-in-out`}
         >

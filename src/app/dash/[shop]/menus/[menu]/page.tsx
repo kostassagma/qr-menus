@@ -21,7 +21,7 @@ export default async function ShopPage({
         ),
         pathname,
         categories (
-          order,
+          category_order,
           category_name (
             locale, text
           ),
@@ -33,8 +33,6 @@ export default async function ShopPage({
     )
     .eq("pathname", menu)
     .limit(1);
-
-  console.log(menuQuery.data);
 
   if (menuQuery.error || !menuQuery.data) {
     permanentRedirect(`/dash/${shop}`);
@@ -58,7 +56,7 @@ export default async function ShopPage({
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-full">
           {menuData.categories.map((category, i) => (
             <Link
-              href={`/dash/${shop}/menus/${menu}/${category.order}`}
+              href={`/dash/${shop}/menus/${menu}/${category.category_order}`}
               key={i}
               className="rounded-lg p-5 border border-gray-300 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-500 w-full flex flex-col gap-1"
             >

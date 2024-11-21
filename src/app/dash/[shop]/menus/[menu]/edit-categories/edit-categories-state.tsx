@@ -12,7 +12,7 @@ interface CategoryNameType {
 
 export interface CategoryType {
   name: CategoryNameType[];
-  order: number;
+  category_order: number;
   height: number;
   id?: number;
 }
@@ -24,7 +24,7 @@ export interface NewMenuStateType {
     menuId: number,
     langs: string[],
     categories: {
-      order: number;
+      category_order: number;
       id: number;
       category_name: {
         locale: "en" | "gr" | "el";
@@ -62,7 +62,7 @@ export const useEditCategoriesState = create<NewMenuStateType>()((set) => ({
             text: "",
           })),
           items: [],
-          order: state.categories.length,
+          category_order: state.categories.length,
         },
       ],
     }));
@@ -76,21 +76,21 @@ export const useEditCategoriesState = create<NewMenuStateType>()((set) => ({
       dragging: undefined,
       categories: state.categories.map((e) => {
         if (
-          (e.order < newOrder && newOrder < oldOrder) ||
-          (e.order < oldOrder && oldOrder < newOrder) ||
-          (e.order > newOrder && newOrder > oldOrder) ||
-          (e.order > oldOrder && oldOrder > newOrder)
+          (e.category_order < newOrder && newOrder < oldOrder) ||
+          (e.category_order < oldOrder && oldOrder < newOrder) ||
+          (e.category_order > newOrder && newOrder > oldOrder) ||
+          (e.category_order > oldOrder && oldOrder > newOrder)
         ) {
           return e;
-        } else if (e.order == oldOrder) {
+        } else if (e.category_order == oldOrder) {
           return {
             ...e,
-            order: newOrder,
+            category_order: newOrder,
           };
         } else {
           return {
             ...e,
-            order: oldOrder > newOrder ? e.order + 1 : e.order - 1,
+            category_order: oldOrder > newOrder ? e.category_order + 1 : e.category_order - 1,
           };
         }
       }),
@@ -104,15 +104,15 @@ export const useEditCategoriesState = create<NewMenuStateType>()((set) => ({
   deleteCategory: (order: number) => {
     set((state) => ({
       categories: state.categories
-        .filter((e) => e.order != order)
-        .map((e) => ({ ...e, order: e.order > order ? e.order - 1 : e.order })),
+        .filter((e) => e.category_order != order)
+        .map((e) => ({ ...e, order: e.category_order > order ? e.category_order - 1 : e.category_order })),
     }));
   },
   dragging: undefined,
   editCategoryName: (order: number, lang: string, target: string) => {
     set((state) => ({
       categories: state.categories.map((e) =>
-        e.order == order
+        e.category_order == order
           ? {
               ...e,
               name: e.name.map((e) =>
@@ -128,7 +128,7 @@ export const useEditCategoriesState = create<NewMenuStateType>()((set) => ({
     langs: string[],
     categories: {
       id: number;
-      order: number;
+      category_order: number;
       category_name: {
         locale: "en" | "gr" | "el";
         text: string;
@@ -141,7 +141,7 @@ export const useEditCategoriesState = create<NewMenuStateType>()((set) => ({
       categories: categories.map((e) => ({
         name: e.category_name,
         height: calculateHeight(langs.length),
-        order: e.order,
+        category_order: e.category_order,
         id: e.id,
       })),
     });

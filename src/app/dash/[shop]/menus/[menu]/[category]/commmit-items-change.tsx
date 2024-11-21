@@ -1,59 +1,59 @@
 "use client";
 import { createBrowserClient } from "@/utils/supabase/client";
-import { useEditCategoriesState } from "./edit-categories-state";
 import { redirect } from "next/navigation";
+import { useEditItemsState } from "./edit-items-state";
 
-export default function CommitCategoryChanges({
+export default function CommitItemsChanges({
   shop,
   menu,
 }: {
   shop: string;
   menu: string;
 }) {
-  const { menuId, categories, supported_languages } = useEditCategoriesState();
+  const { categoryId, items, supported_languages } = useEditItemsState();
 
   async function createMenu() {
     const supabase = await createBrowserClient();
 
-    await categories.forEach(async (category) => {
-      if (category.id) {
+    await items.forEach(async (item) => {
+      if (item.id) {
         const { error } = await supabase
-          .from("categories")
-          .update({ category_order: category.category_order })
-          .eq("id", category.id);
+          .from("items")
+          .update({ item_order: item.item_order })
+          .eq("id", item.id);
 
         if (error) return;
 
         await supported_languages.forEach(async (lang) => {
           const { error } = await supabase
-            .from("category_name")
+            .from("items_name")
             .update({
-              text: category.name.find((e) => e.locale === lang)!.text,
+              text: item.name.find((e) => e.locale === lang)!.text,
             })
-            .eq("category", category.id!)
+            .eq("item", item.id!)
             .eq("locale", lang);
 
           if (error) throw new Error();
         });
       } else {
-        const insertedCategory = await supabase
-          .from("categories")
+        const insertedItem = await supabase
+          .from("items")
           .insert({
-            menu: menuId,
-            category_order: category.category_order,
+            category: categoryId,
+            item_order: item.item_order,
           })
           .select("id");
 
-        console.log(insertedCategory.error);
+        console.log(insertedItem.error);
 
-        if (insertedCategory.error || !insertedCategory.data) return;
+        if (insertedItem.error || !insertedItem.data) return;
 
-        await supabase.from("category_name").insert(
+        await supabase.from("items_name").insert(
           //@ts-expect-error because locale is str but supabase expects el|en
-          category.name.map((e) => ({
+          item.name.map((e) => ({
             locale: e.locale,
             text: e.text,
-            category: insertedCategory.data[0].id,
+            item: insertedItem.data[0].id,
           }))
         );
       }

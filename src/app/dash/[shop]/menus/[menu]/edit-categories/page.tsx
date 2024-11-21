@@ -26,7 +26,7 @@ export default async function ShopPage({
         pathname,
         categories (
           id,
-          order,
+          category_order,
           category_name (
             locale, text
           )
