@@ -41,22 +41,30 @@ export default async function ShopPage({
 
   return (
     <div>
-      {shopQuery.data![0].menus.map((e) => (
-        <div>
+      {shopQuery.data![0].menus.map((e, i) => (
+        <div key={i}>
           <h3 className="font-semibold text-xl">
             &#8594; {e.menu_names.map((e) => e.text).join("/")}
           </h3>
           <div className="pl-2">
-            {e.categories.map((e) => (
-              <div>
+            {e.categories.map((e, i) => (
+              <div key={i}>
                 <h3 className="font-semibold text-lg">
                   &#8658; {e.category_name.map((e) => e.text).join("/")}
                 </h3>
                 <div className="gap-2 flex flex-col">
-                  {e.items.map((e) => (
-                    <div className="w-full p-2 border border-gray-300 rounded-md  hover:cursor-pointer transition ease-in-out hover:border-gray-500 flex flex-row">
-                      <p className="mr-auto">{e.items_name.map((e) => e.text).join("/")}</p>
-                      <EditAvailability initialValue={e.available} itemId={e.id}  />
+                  {e.items.map((e, i) => (
+                    <div
+                      key={i}
+                      className="w-full p-2 border border-gray-300 rounded-md  hover:cursor-pointer transition ease-in-out hover:border-gray-500 flex flex-row"
+                    >
+                      <p className="mr-auto">
+                        {e.items_name.map((e) => e.text).join("/")}
+                      </p>
+                      <EditAvailability
+                        initialValue={e.available}
+                        itemId={e.id}
+                      />
                     </div>
                   ))}
                 </div>

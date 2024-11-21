@@ -30,7 +30,7 @@ const EditAvailability: FC<Props> = ({ initialValue, itemId }) => {
           value={available ? "true" : "false"}
           type="checkbox"
           onChange={(e) => {
-            e.preventDefault;
+            e.preventDefault();
             setAvailable((old) => !old);
           }}
           className="sr-only peer"
