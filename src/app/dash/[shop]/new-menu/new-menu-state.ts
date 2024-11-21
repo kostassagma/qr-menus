@@ -35,7 +35,3 @@ export const useNewMenuState = create<NewMenuStateType>()((set) => ({
     });
   },
 }));
-
-function calculateHeight(langs: number) {
-  return 44 + langs * 62 + 20;
-}

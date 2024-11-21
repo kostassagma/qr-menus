@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { nanoid } from "nanoid";
 
 export interface MenuNameType {
   locale: string;

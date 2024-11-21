@@ -22,6 +22,8 @@ export default function CommitCategoryChanges({
           .update({ order: category.order })
           .eq("id", category.id);
 
+        if (error) return;
+
         await supported_languages.forEach(async (lang) => {
           const { error } = await supabase
             .from("category_name")
@@ -30,6 +32,8 @@ export default function CommitCategoryChanges({
             })
             .eq("category", category.id!)
             .eq("locale", lang);
+
+          if (error) throw new Error();
         });
       } else {
         const insertedCategory = await supabase

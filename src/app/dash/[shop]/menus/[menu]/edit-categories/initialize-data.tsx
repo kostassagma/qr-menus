@@ -2,7 +2,6 @@
 import { useAuthState } from "@/app/dash/auth-state";
 import { FC, useEffect } from "react";
 import { useEditCategoriesState } from "./edit-categories-state";
-import { createBrowserClient } from "@/utils/supabase/client";
 
 interface Props {
   shop: string;
@@ -28,7 +27,7 @@ const InitializeData: FC<Props> = ({ shop, categories, menuId }) => {
       const shopDetails = shops!.find((e) => e.pathname === shop);
       initializeData(menuId, shopDetails!.supported_languages, categories);
     
-  }, [shops, shop, initializeData]);
+  }, [shops, shop, initializeData, menuId, categories]);
 
   return <></>;
 };
