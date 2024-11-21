@@ -11,7 +11,9 @@ const SideNav: FC<Props> = ({ tab, shopPathname }) => {
   const [selected, setSelected] = useState(tab);
 
   return (
-    <ul className="flex flex-row sm:flex-col gap-1 relative z-10 overflow-x-scroll overflow-y-hidden sm:overflow-auto pb-1 sm:pb-0 ">
+    <ul className="flex flex-row sm:flex-col gap-1 relative z-10 overflow-x-scroll overflow-y-hidden sm:overflow-auto pb-1 sm:pb-0" style={{
+      scrollbarWidth: "none"
+    }}>
       {["miscellaneous", "menus", "billing", "other"].map((e: string, i) => (
         <Link
           href={`/dash/${shopPathname}/${e}`}

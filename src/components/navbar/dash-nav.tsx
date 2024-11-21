@@ -19,7 +19,7 @@ const DashNav: FC<Props> = ({ shop }) => {
       <div className="flex max-w-7xl gap-3 w-full">
         {shop && (
           <div
-            className={`flex flex-row gap-2 group cursor-pointer transition-all ease-in-out mr-auto relative overflow-y-visible min-w-28`}
+            className={`flex flex-row gap-2 group cursor-pointer transition-all ease-in-out mr-auto relative overflow-y-visible w-full sm:max-w-96`}
           >
             <div
               className={`flex flex-row gap-2 group cursor-pointer border ${
@@ -31,7 +31,7 @@ const DashNav: FC<Props> = ({ shop }) => {
                 setExpanded((prev) => !prev);
               }}
             >
-              <p className="my-auto">
+              <p className="my-auto three-dots">
                 {currentShop
                   ? currentShop.shop_name.map((e) => e.text).join("/")
                   : "loading"}
@@ -43,40 +43,48 @@ const DashNav: FC<Props> = ({ shop }) => {
                 width={25}
               />
             </div>
-            {shops && (
-              <div
-                className={`absolute bottom-0 ${
-                  expanded ? "translate-y-full" : "translate-y-0"
-                } left-0 border border-t-0 border-gray-300 rounded-b-md bg-white w-full transition-all ease-in-out z-10 flex flex-col gap-1`}
-              >
-                {shops
-                  .filter((e) => e.pathname != shop)
-                  .map((shopToBeRendered) => (
-                    <Link
-                      href={`/dash/${shopToBeRendered.pathname}`}
-                      className="my-auto cursor-pointer hover:bg-gray-200 transition-all ease-in-out p-2 max-w-full overflow-hidden overflow-ellipsis whitespace-nowrap"
-                      key={shopToBeRendered.pathname}
-                    >
-                      {currentShop
-                        ? shopToBeRendered.shop_name
-                            .map((e) => e.text)
-                            .join("/")
-                        : "loading"}
-                    </Link>
-                  ))}
-                <Link
-                  href="/dash/new-shop"
-                  className="my-auto cursor-pointer hover:bg-gray-200 transition-all ease-in-out p-2"
+            <div
+              className={`absolute top-0 z-20 overflow-hidden w-full rounded-md ${
+                expanded ? "h-auto" : "h-0"
+              }`}
+              style={{ transition: "height 3s ease-in-out" }}
+            >
+              {shops && (
+                <div
+                  className={`${
+                    expanded ? "translate-y-0" : "-translate-y-full"
+                  } left-0 border border-t-0 border-gray-300 rounded-b-md bg-white w-full transition-all ease-in-out z-10 flex flex-col gap-1`}
                 >
-                  Νέο μαγαζί
-                </Link>
-              </div>
-            )}
-            <div className="bg-white absolute bottom-0 w-full z-20 h-96" />
+                  {shops
+                    .filter((e) => e.pathname != shop)
+                    .map((shopToBeRendered) => (
+                      <Link
+                        href={`/dash/${shopToBeRendered.pathname}`}
+                        className="my-auto cursor-pointer hover:bg-gray-200 transition-all ease-in-out p-2 max-w-full three-dots"
+                        key={shopToBeRendered.pathname}
+                      >
+                        {currentShop
+                          ? shopToBeRendered.shop_name
+                              .map((e) => e.text)
+                              .join("/")
+                          : "loading"}
+                      </Link>
+                    ))}
+                  <Link
+                    href="/dash/new-shop"
+                    className="my-auto cursor-pointer hover:bg-gray-200 transition-all ease-in-out p-2"
+                  >
+                    Νέο μαγαζί
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         )}
-        <div className="flex flex-row gap-2 group cursor-pointer border border-transparent hover:border-gray-300 rounded-md p-2 transition-all ease-in-out ml-auto">
-          <p className="my-auto">{email ? email : "login"}</p>
+        <div className="flex flex-row gap-2 group cursor-pointer border border-transparent hover:border-gray-300 rounded-md p-2 transition-all ease-in-out ml-auto max-w-96">
+          <p className="my-auto three-dots hidden md:block">
+            {email ? email : "login"}
+          </p>
           <UserIcon
             className="my-auto group-hover:bg-gray-200 p-1 rounded-full transition-all ease-in-out"
             width={30}

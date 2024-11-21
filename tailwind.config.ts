@@ -11,9 +11,19 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        accent: "#2563eb"
+        accent: "#2563eb",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    ({ addUtilities }: any) => {
+      addUtilities({
+        ".three-dots": {
+          overflow: "hidden",
+          "text-overflow": "ellipsis",
+          "white-space": "nowrap",
+        },
+      });
+    },
+  ],
 } satisfies Config;
