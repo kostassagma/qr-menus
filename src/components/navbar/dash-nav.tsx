@@ -13,8 +13,6 @@ const DashNav: FC<Props> = ({ shop }) => {
   const { email, shops } = useAuthState();
   const currentShop = shops ? shops.filter((e) => e.pathname == shop)[0] : null;
   const [expanded, setExpanded] = useState(false);
-
-  console.log(shops);
   
 
   return (
