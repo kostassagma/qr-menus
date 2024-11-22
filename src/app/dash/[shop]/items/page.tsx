@@ -58,7 +58,7 @@ export default async function ShopPage({
                       key={i}
                       className="w-full p-2 border border-gray-300 rounded-md  hover:cursor-pointer transition ease-in-out hover:border-gray-500 flex flex-row"
                     >
-                      <p className="mr-auto">
+                      <p className="mr-auto three-dots">
                         {e.items_name.map((e) => e.text).join("/")}
                       </p>
                       <EditAvailability

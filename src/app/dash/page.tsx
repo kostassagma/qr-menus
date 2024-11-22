@@ -24,7 +24,7 @@ export default function Dash() {
                       key={i}
                       className="rounded-lg p-5 border border-gray-300 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-500"
                     >
-                      <h1 className="font-medium">
+                      <h1 className="font-medium three-dots">
                         {shop.shop_name.map((e) => e.text).join("/")}
                       </h1>
                     </Link>

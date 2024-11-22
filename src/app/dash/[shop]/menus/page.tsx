@@ -47,7 +47,7 @@ export default async function ShopPage({
             key={i}
             className="rounded-lg p-5 border border-gray-300 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-500 w-full"
           >
-            <h2 className="text-xl font-semibold">
+            <h2 className="text-xl font-semibold three-dots">
               {menu.menu_names.map((e) => e.text).join("/")}
             </h2>
             <p>Αυτός ο κατάλογος έχει: {menu.categories.length} κατηγορίες</p>

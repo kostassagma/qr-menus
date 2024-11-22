@@ -60,7 +60,7 @@ export default async function ShopPage({
               key={i}
               className="rounded-lg p-5 border border-gray-300 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-500 w-full flex flex-col gap-1"
             >
-              <h2 className="text-xl font-semibold">
+              <h2 className="text-xl font-semibold three-dots">
                 {category.category_name.map((e) => e.text).join("/")}
               </h2>
               <p>{category.category_name.length === 0 ? "" : ""}</p>
