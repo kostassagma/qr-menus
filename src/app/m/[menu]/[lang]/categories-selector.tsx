@@ -45,7 +45,7 @@ const CategoriesSelector: FC<Props> = ({ categories }) => {
         order === selected ? (
           <Link
             href={`#${order}`}
-            className="rounded-md px-3 py-1 text-sm font-semibold bg-black text-white whitespace-nowrap"
+            className="rounded-md px-3 py-1 text-sm font-semibold bg-gray-800 text-white whitespace-nowrap"
             key={order}
           >
             {label}
