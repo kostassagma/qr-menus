@@ -1,4 +1,5 @@
-import QrCodeSnippet from "./qr-code-snippet";
+import QrCodeSnippet from "@/components/qr-code-snippet";
+
 
 export default async function ShopPage({
   params,

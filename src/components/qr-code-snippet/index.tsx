@@ -1,5 +1,9 @@
 "use client";
-import React, { FC, useState } from "react";
+import ClipBoardIcon from "@/icons/clipboard";
+import ClipBoardCheckIcon from "@/icons/clipboard-check";
+import Link from "next/link";
+import React, { FC, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { QRCode } from "react-qrcode-logo";
 
 interface Props {
@@ -8,6 +12,7 @@ interface Props {
 
 const QrCodeSnippet: FC<Props> = ({ link }) => {
   const [qrStyle, setQrStyle] = useState<"dots" | "fluid" | "squares">("dots");
+  const [copied, setCopied] = useState(false);
 
   const downloadCode = () => {
     const canvas = document.getElementById("QR");
@@ -37,8 +42,45 @@ const QrCodeSnippet: FC<Props> = ({ link }) => {
     });
   };
 
+  const copyMenuLink = async () => {
+    const elem = document.createElement("textarea");
+    elem.value = `http://localhost:3000${link}`;
+    document.body.appendChild(elem);
+    elem.select();
+    document.execCommand("copy");
+    document.body.removeChild(elem);
+    setCopied(true);
+    toast("Ο σύνδεσμος του μενού αντιγράφθηκε στο πρόχειρο!");
+    setTimeout(() => {
+      setCopied(false);
+    }, 4 * 1000);
+  };
+
   return (
     <div className="flex flex-col w-full">
+      <div className="flex flex-row rounded w-full border border-gray-600">
+        <Link
+          className="p-2 overflow-hidden hover:underline"
+          target="_blank"
+          href={link}
+        >
+          {link}
+        </Link>
+        <div className="flex-1" />
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            copyMenuLink();
+          }}
+          className="aspect-square h-full flex hover:bg-gray-100 rounded p-2"
+        >
+          {copied ? (
+            <ClipBoardCheckIcon width={22} className="m-auto" />
+          ) : (
+            <ClipBoardIcon width={22} className="m-auto" />
+          )}
+        </button>
+      </div>
       <div
         className="mx-auto"
         onClick={(e) => {
@@ -57,6 +99,7 @@ const QrCodeSnippet: FC<Props> = ({ link }) => {
           qrStyle={qrStyle} // type of qr code, wether you want dotted ones or the square ones
           eyeRadius={10} // radius of the promocode eye
           id={"QR"}
+          bgColor="#f5f5f5"
         />
       </div>
       <button

@@ -38,7 +38,7 @@ export default async function ShopPage({
     .limit(1);
 
   return (
-    <div className="flex-1 flex flex-col gap-3 w-full">
+    <div className="flex-1 flex flex-col gap-3 w-full bg-neutral-100 p-5 rounded-3xl">
       <h2 className="text-xl">Οι κατάλογοι του μαγαζιού:</h2>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-full">
         {shopQuery.data![0].menus.map((menu, i) => (
