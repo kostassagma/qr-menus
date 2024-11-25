@@ -3,7 +3,6 @@ import { createSuperClient } from "@/utils/supabase/superuser";
 import { redirect } from "next/navigation";
 import CategoriesSelector from "./categories-selector";
 import Link from "next/link";
-import LangsIcon from "@/icons/langs";
 import BackIcon from "@/icons/back";
 import SwitchLang from "./switch-lang";
 import SwitchLangsButton from "./switch-langs-button";

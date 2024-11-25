@@ -59,9 +59,21 @@ const SideNav: FC<Props> = ({ tab, shopPathname }) => {
 export default SideNav;
 
 const labels = {
-  miscellaneous: ["Γενικά", <HouseIcon width={20} className="my-auto" />],
-  menus: ["Κατάλογοι", <ListIcon width={20} className="my-auto" />],
-  billing: ["Χρεώσεις", <CreditIcon width={20} className="my-auto" />],
-  items: ["Προϊόντα", <BagIcon width={20} className="my-auto" />],
-  other: ["Άλλες Ρυθμίσεις", <SettingsIcon width={20} className="my-auto" />],
+  miscellaneous: [
+    "Γενικά",
+    <HouseIcon width={20} className="my-auto" key={"miscellaneous"} />,
+  ],
+  menus: [
+    "Κατάλογοι",
+    <ListIcon width={20} className="my-auto" key={"menus"} />,
+  ],
+  billing: [
+    "Χρεώσεις",
+    <CreditIcon width={20} className="my-auto" key={"billing"} />,
+  ],
+  items: ["Προϊόντα", <BagIcon width={20} className="my-auto" key={"items"} />],
+  other: [
+    "Άλλες Ρυθμίσεις",
+    <SettingsIcon width={20} className="my-auto" key={"other"} />,
+  ],
 };
