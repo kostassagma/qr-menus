@@ -1,5 +1,5 @@
 "use client";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import "./header.css";
 import Link from "next/link";
 
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const CategoriesSelector: FC<Props> = ({ categories }) => {
-  const [selected, setSelected] = useState(categories[0].order);
+  const [selected] = useState(categories[0].order);
 
   // useEffect(() => {
   //   function getCategoryInView() {

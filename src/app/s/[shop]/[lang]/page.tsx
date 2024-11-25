@@ -70,6 +70,7 @@ export default async function ShopPage({
           <h3 className="font-semibold">Οι καταλογοι του μαγαζιού:</h3>
           {shopData.menus.map((e) => (
             <Link
+              key={e.pathname}
               href={`/m/${e.pathname}/${lang}`}
               className="border border-gray-500 rounded-md p-2"
             >
@@ -82,8 +83,11 @@ export default async function ShopPage({
           {/* @ts-expect-error i have f*d up types  */}
           {shopData.supported_languages.map((currentLang) => (
             <Link
+              key={currentLang}
               href={`/s/${shopPathname}/${currentLang}`}
-              className={`mx-auto ${lang == currentLang?"bg-gray-200":"bg-transparent"} px-3 rounded-lg`}
+              className={`mx-auto ${
+                lang == currentLang ? "bg-gray-200" : "bg-transparent"
+              } px-3 rounded-lg`}
             >
               {SUPPORTED_LANGUAGES.find((e) => e.symbol == currentLang)!.label}
             </Link>
