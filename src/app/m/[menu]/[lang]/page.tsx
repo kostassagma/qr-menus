@@ -42,7 +42,7 @@ export default async function ShopPage({
     );
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen max-w-4xl mx-auto">
       <div className="w-full aspect-video">
         <img src="https://cdn.e-food.gr/cdn-cgi/image/f=auto/shop/6854252/cover?t=1707728012" />
       </div>
@@ -67,7 +67,7 @@ export default async function ShopPage({
               <div className="flex flex-col gap-4 my-4">
                 {cats.map((e) => (
                   <div key={e.order} className="flex flex-row gap-5 border-b border-gray-200 py-3">
-                    <div>
+                    <div className="flex-1">
                       <h3 className="font-semibold mb-1">Φυσικός Χυμός Πορτοκάλι</h3>
                       <p className="text-gray-500">
                         Με πορτοκάλι, αχλάδι, μήλο & μπανάνα
