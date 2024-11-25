@@ -23,6 +23,7 @@ export default async function CategoryPage({
         items (
           item_order,
           id,
+          price,
           items_name (
             locale,
             text
@@ -61,6 +62,7 @@ export default async function CategoryPage({
         items={categoryData.items.map((e) => ({
           id: e.id,
           item_order: e.item_order,
+          price: e.price,
           item_name: e.items_name.map((e) => ({
             locale: e.locale,
             text: e.text,

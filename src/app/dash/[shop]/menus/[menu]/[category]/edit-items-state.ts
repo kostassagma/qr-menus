@@ -9,6 +9,7 @@ export interface ItemType {
   name: ItemNameType[];
   item_order: number;
   height: number;
+  price: string;
   id?: number;
 }
 
@@ -26,13 +27,14 @@ export interface NewMenuStateType {
   drag: (oldOrder: number, newOrder: number) => void;
   deleteItem: (order: number) => void;
   editItemName: (order: number, lang: string, target: string) => void;
-
+  editItemPrice: (order: number, target: string) => void;
   initializeData: (
     categoryId: number,
     langs: string[],
     items: {
       item_order: number;
       id: number;
+      price: string;
       item_name: {
         locale: "en" | "gr" | "el";
         text: string;
@@ -58,6 +60,7 @@ export const useEditItemsState = create<NewMenuStateType>()((set) => ({
             text: "",
           })),
           item_order: state.items.length,
+          price: "",
         },
       ],
     }));
@@ -85,7 +88,8 @@ export const useEditItemsState = create<NewMenuStateType>()((set) => ({
         } else {
           return {
             ...e,
-            item_order: oldOrder > newOrder ? e.item_order + 1 : e.item_order - 1,
+            item_order:
+              oldOrder > newOrder ? e.item_order + 1 : e.item_order - 1,
           };
         }
       }),
@@ -121,12 +125,20 @@ export const useEditItemsState = create<NewMenuStateType>()((set) => ({
       ),
     }));
   },
+  editItemPrice: (order: number, target: string) => {
+    set((state) => ({
+      items: state.items.map((e) =>
+        e.item_order == order ? { ...e, price: target } : e
+      ),
+    }));
+  },
   initializeData: (
     categoryId: number,
     langs: string[],
     items: {
       id: number;
       item_order: number;
+      price: string;
       item_name: {
         locale: "en" | "gr" | "el";
         text: string;
@@ -141,11 +153,12 @@ export const useEditItemsState = create<NewMenuStateType>()((set) => ({
         height: calculateHeight(langs.length),
         item_order: e.item_order,
         id: e.id,
+        price: e.price,
       })),
     });
   },
 }));
 
 function calculateHeight(langs: number) {
-  return 44 + langs * 62 + 20 +40+62;
+  return 44 + langs * 62 + 20 + 40 + 62;
 }

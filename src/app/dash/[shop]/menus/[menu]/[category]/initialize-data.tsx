@@ -8,6 +8,7 @@ interface Props {
   items: {
     item_order: number;
     id: number;
+    price: string;
     item_name: {
       locale: "en" | "gr" | "el";
       text: string;

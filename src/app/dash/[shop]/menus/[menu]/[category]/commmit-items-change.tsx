@@ -41,6 +41,7 @@ export default function CommitItemsChanges({
           .insert({
             category: categoryId,
             item_order: item.item_order,
+            price: item.price
           })
           .select("id");
 
