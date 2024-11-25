@@ -2,6 +2,9 @@ import { SUPPORTED_LANGUAGES } from "@/utils/constants";
 import { createSuperClient } from "@/utils/supabase/superuser";
 import { redirect } from "next/navigation";
 import CategoriesSelector from "./categories-selector";
+import Link from "next/link";
+import LangsIcon from "@/icons/langs";
+import BackIcon from "@/icons/back";
 
 export default async function ShopPage({
   params,
@@ -43,7 +46,18 @@ export default async function ShopPage({
 
   return (
     <div className="min-h-screen max-w-4xl mx-auto">
-      <div className="w-full aspect-video">
+      <div className="w-full aspect-video sticky top-0">
+        <Link
+          href={"/dash"}
+          className="absolute top-3 left-3 p-3 bg-gray-800 text-white rounded-full"
+        >
+          <BackIcon width={15} />
+        </Link>
+        <button
+          className="absolute top-3 right-3 p-3 bg-gray-800 text-white rounded-full"
+        >
+          <LangsIcon width={15} />
+        </button>
         <img src="https://cdn.e-food.gr/cdn-cgi/image/f=auto/shop/6854252/cover?t=1707728012" />
       </div>
       <div className="w-full bg-neutral-50 rounded-t-3xl h-full -translate-y-6 scroll-smooth">
@@ -66,15 +80,23 @@ export default async function ShopPage({
               </h2>
               <div className="flex flex-col gap-4 my-4">
                 {cats.map((e) => (
-                  <div key={e.order} className="flex flex-row gap-5 border-b border-gray-200 py-3">
+                  <div
+                    key={e.order}
+                    className="flex flex-row gap-5 border-b border-gray-200 py-3"
+                  >
                     <div className="flex-1">
-                      <h3 className="font-semibold mb-1">Φυσικός Χυμός Πορτοκάλι</h3>
+                      <h3 className="font-semibold mb-1">
+                        Φυσικός Χυμός Πορτοκάλι
+                      </h3>
                       <p className="text-gray-500">
                         Με πορτοκάλι, αχλάδι, μήλο & μπανάνα
                       </p>
                       <p>3,20€</p>
                     </div>
-                    <img className="rounded-md overflow-hidden h-20" src="https://cdn.e-food.gr/cdn-cgi/image/h=160,fit=cover,q=100,f=auto/restaurants/834194/offer/1043293" />
+                    <img
+                      className="rounded-md overflow-hidden h-20"
+                      src="https://cdn.e-food.gr/cdn-cgi/image/h=160,fit=cover,q=100,f=auto/restaurants/834194/offer/1043293"
+                    />
                   </div>
                 ))}
               </div>
