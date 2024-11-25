@@ -4,6 +4,8 @@ import GridIcon from "@/icons/grid";
 import { SUPPORTED_LANGUAGES } from "@/utils/constants";
 import TrashIcon from "@/icons/trash";
 import { useEditItemsState } from "./edit-items-state";
+import UploadIcon from "@/icons/upload";
+import NotesIcon from "@/icons/notes";
 
 const AddItems: FC = () => {
   const { items, addItem } = useEditItemsState();
@@ -21,7 +23,7 @@ const AddItems: FC = () => {
         }}
       >
         {items.map((_, i) => (
-          <Category key={i} index={i} />
+          <Item key={i} index={i} />
         ))}
         <button
           onClick={(e) => {
@@ -39,11 +41,11 @@ const AddItems: FC = () => {
 
 export default AddItems;
 
-interface CategoryProps {
+interface ItemProps {
   index: number;
 }
 
-const Category: FC<CategoryProps> = ({ index }) => {
+const Item: FC<ItemProps> = ({ index }) => {
   const {
     reOrder,
     items,
@@ -56,7 +58,9 @@ const Category: FC<CategoryProps> = ({ index }) => {
   const { item_order, name } = items[index];
   const dragged = dragging ? dragging.oldOrder === item_order : false;
   const [top, setTop] = useState(
-    items.filter((e) => e.item_order < item_order).reduce((a, b) => a + b.height, 0)
+    items
+      .filter((e) => e.item_order < item_order)
+      .reduce((a, b) => a + b.height, 0)
   );
 
   // Mouse Move
@@ -71,7 +75,7 @@ const Category: FC<CategoryProps> = ({ index }) => {
             if (current > top) {
               drag(item_order, i);
               console.log(dragging);
-              
+
               return;
             }
             current += items[i].height / 2;
@@ -110,7 +114,10 @@ const Category: FC<CategoryProps> = ({ index }) => {
         topToBeAssigned -= items.find(
           (e) => e.item_order == dragging.oldOrder
         )!.height;
-      } else if (dragging.newOrder <= item_order && item_order < dragging.oldOrder) {
+      } else if (
+        dragging.newOrder <= item_order &&
+        item_order < dragging.oldOrder
+      ) {
         topToBeAssigned += items.find(
           (e) => e.item_order == dragging.oldOrder
         )!.height;
@@ -158,6 +165,30 @@ const Category: FC<CategoryProps> = ({ index }) => {
             />
           </div>
         ))}
+        <div>
+          <label>Τιμή</label>
+          <input
+            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+            id="link"
+            type="number"
+            placeholder="€"
+          />
+        </div>
+        <div className="flex gap-2 flex-row pt-2">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+            className="border border-gray-500 flex flex-row gap-2 font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline hover:scale-105 transition ease-in-out ml-auto"
+          >
+            <UploadIcon width={20} className="my-auto" />
+            Ανεβάστε φωτογραφία
+          </button>
+          <button className="border border-gray-500 flex flex-row gap-2 font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline hover:scale-105 transition ease-in-out mr-auto">
+            <NotesIcon width={20} className="my-auto" />
+            Προσθέστε περιγραφή
+          </button>
+        </div>
       </div>
       <div className="flex flex-col gap-2 my-auto">
         <button

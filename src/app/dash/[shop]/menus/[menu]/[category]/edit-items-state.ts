@@ -147,5 +147,5 @@ export const useEditItemsState = create<NewMenuStateType>()((set) => ({
 }));
 
 function calculateHeight(langs: number) {
-  return 44 + langs * 62 + 20;
+  return 44 + langs * 62 + 20 +40+62;
 }
