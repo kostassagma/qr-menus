@@ -19,7 +19,7 @@ export default function CommitItemsChanges({
       if (item.id) {
         const { error } = await supabase
           .from("items")
-          .update({ item_order: item.item_order })
+          .update({ item_order: item.item_order, price: item.price })
           .eq("id", item.id);
 
         if (error) return;

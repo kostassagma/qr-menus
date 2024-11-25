@@ -54,8 +54,9 @@ const Item: FC<ItemProps> = ({ index }) => {
     deleteItem,
     editItemName,
     supported_languages,
+    editItemPrice,
   } = useEditItemsState();
-  const { item_order, name } = items[index];
+  const { item_order, name, price } = items[index];
   const dragged = dragging ? dragging.oldOrder === item_order : false;
   const [top, setTop] = useState(
     items
@@ -172,6 +173,13 @@ const Item: FC<ItemProps> = ({ index }) => {
             id="link"
             type="number"
             placeholder="€"
+            value={price}
+            required={true}
+            onSubmit={(e) => e.preventDefault()}
+            onChange={(e) => {
+              e.preventDefault();
+              editItemPrice(item_order, e.target.value);
+            }}
           />
         </div>
         <div className="flex gap-2 flex-row pt-2">
