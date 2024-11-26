@@ -19,7 +19,7 @@ export default async function CategoryPage({
       `
         id,
         category_order,
-        menu (pathname, shop (pathname, supported_languages)),
+        menu:menus!inner (pathname, shop:shops!inner (pathname, supported_languages)),
         items (
           item_order,
           id,
@@ -35,13 +35,16 @@ export default async function CategoryPage({
         )
       `
     )
-    .eq("category_order", parseInt(category))
     .eq("menu.pathname", menu)
+    .eq("category_order", parseInt(category))
     .limit(1);
 
   if (categoryQuery.error || !categoryQuery.data) return <></>;
 
   const categoryData = categoryQuery.data[0];
+
+  console.log(categoryQuery.data);
+  
 
   return (
     <div className="flex-1 flex flex-col gap-3 w-full">
@@ -57,7 +60,7 @@ export default async function CategoryPage({
       <AddItems />
       <InitializeData
         categoryId={categoryData.id}
-        /* @ts-expect-error supabase bug */
+        // @ts-expect-error i f*d up types
         langs={categoryData.menu.shop.supported_languages}
         items={categoryData.items.map((e) => ({
           id: e.id,

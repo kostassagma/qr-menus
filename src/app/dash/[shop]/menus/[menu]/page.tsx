@@ -51,18 +51,19 @@ export default async function ShopPage({
       >
         &#8592; Πίσω στους καταλόγους
       </Link>
-      <div className="group flex flex-row gap-3">
-        <h2 className="text-2xl font-bold">
+      <Link
+        href={`/m/${menu}`}
+        target="_blank"
+        className="group flex flex-row gap-3"
+      >
+        <h1 className="text-2xl font-bold">
           {menuData.menu_names.map((e) => e.text).join("/")}
-        </h2>
-        <Link
-          href={`/m/${menu}`}
-          target="_blank"
+        </h1>
+        <LinkIcon
+          width={20}
           className="my-auto invisible group-hover:visible"
-        >
-          <LinkIcon width={20} />
-        </Link>
-      </div>
+        />
+      </Link>
       <div className="bg-neutral-100 rounded-3xl p-5 flex flex-col gap-3">
         <h3 className="text-xl font-semibold">Οι κατηγορίες του καταλόγου:</h3>
         {menuData.categories.length != 0 ? (
