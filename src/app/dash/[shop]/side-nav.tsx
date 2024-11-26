@@ -9,11 +9,10 @@ import { FC, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 interface Props {
-  tab: number;
   shopPathname: string;
 }
 
-const SideNav: FC<Props> = ({ tab, shopPathname }) => {
+const SideNav: FC<Props> = ({ shopPathname }) => {
   const [selected, setSelected] = useState(0);
   const pathname = usePathname();
 
