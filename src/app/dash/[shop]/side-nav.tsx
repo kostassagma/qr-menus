@@ -5,7 +5,8 @@ import HouseIcon from "@/icons/house";
 import ListIcon from "@/icons/list";
 import SettingsIcon from "@/icons/settings";
 import Link from "next/link";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 interface Props {
   tab: number;
@@ -13,11 +14,32 @@ interface Props {
 }
 
 const SideNav: FC<Props> = ({ tab, shopPathname }) => {
-  const [selected, setSelected] = useState(tab);
+  const [selected, setSelected] = useState(0);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    switch (pathname.split("/")[3]) {
+      case "miscallaneous":
+        setSelected(0);
+        break;
+      case "menus":
+        setSelected(1);
+        break;
+      case "items":
+        setSelected(2);
+        break;
+      case "billing":
+        setSelected(3);
+        break;
+      case "other":
+        setSelected(4);
+        break;
+    }
+  }, [pathname]);
 
   return (
     <ul
-      className="flex flex-row sm:flex-col gap-1 relative z-10 overflow-x-scroll overflow-y-hidden sm:overflow-auto pb-1 sm:pb-0"
+      className="flex flex-row sm:flex-col gap-1 relative z-10 overflow-x-scroll overflow-y-hidden sm:overflow-auto pb-1 sm:pb-0 px-2 sm:px-0"
       style={{
         scrollbarWidth: "none",
       }}
@@ -30,9 +52,9 @@ const SideNav: FC<Props> = ({ tab, shopPathname }) => {
             onClick={() => {
               setSelected(i);
             }}
-            className={`cursor-pointer py-1 px-4 text-black ${
-              i == selected ? "sm:text-white" : "sm:text-black"
-            } transition-all ease-in-out z-10 relative`}
+            className={`cursor-pointer py-1 px-4 ${
+              i == selected ? "text-white bg-black" : "text-black"
+            } transition-all ease-in-out z-10 relative rounded-md`}
           >
             <li className="whitespace-nowrap flex flex-row gap-2">
               {/* @ts-expect-error stupid error smh */}
@@ -40,18 +62,9 @@ const SideNav: FC<Props> = ({ tab, shopPathname }) => {
               {/* @ts-expect-error stupid error smh */}
               <p className="my-auto"> {labels[e][0]}</p>
             </li>
-            {selected == i && (
-              <span className="absolute bg-black h-1 w-3/4 rounded-t-full bottom-0 left-1/2 -translate-x-1/2 sm:hidden" />
-            )}
           </Link>
         )
       )}
-      <div
-        className="absolute w-full rounded-md h-[32px] bg-black transition-all ease-in-out z-0 hidden sm:block left-0"
-        style={{
-          top: selected * 36,
-        }}
-      />
     </ul>
   );
 };
