@@ -8,7 +8,7 @@ const ContactForm: FC = () => {
 
   return (
     <form
-      className="p-10 bg-gray-200 rounded-lg overflow-hidden max-w-5xl gap-3 flex flex-col w-full"
+      className="p-10 bg-gray-200 rounded-lg overflow-hidden max-w-5xl gap-3 flex flex-col w-full mx-auto"
       autoComplete="on"
     >
       <h1 className="text-2xl font-bold">Επικοινωνία</h1>
