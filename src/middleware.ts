@@ -1,10 +1,29 @@
 import { type NextRequest } from "next/server";
 import { updateSession } from "@/utils/supabase/middleware";
+import { applyLocale } from "./utils/i18n/middleware";
 
 export async function middleware(request: NextRequest) {
   // update user's auth session
+  const { pathname } = request.nextUrl;
 
-  return await updateSession(request);
+  // matching /m/[menu] or /s/[shop]
+  if (
+    pathname.match("^\/m\/[^\/]+\/?$") ||
+    pathname.match("^\/s\/[^\/]+\/?$")
+  ) {
+    console.log("HEllo");
+    
+    return applyLocale(request);
+  }
+  
+  // matching /dash/anything
+  if (pathname.match(/^\/dash(?:.*)?$/)) return updateSession(request);
+
+  // matching /auth
+  if (pathname == "/auth") return updateSession(request);
+
+
+  return;
 }
 
 export const config = {

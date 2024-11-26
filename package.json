@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.5.8",
     "@supabase/ssr": "^0.5.1",
     "@supabase/supabase-js": "^2.46.1",
     "nanoid": "^5.0.8",
+    "negotiator": "^1.0.0",
     "next": "15.0.3",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
@@ -23,6 +25,7 @@
     "zustand": "^5.0.1"
   },
   "devDependencies": {
+    "@types/negotiator": "^0.6.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
