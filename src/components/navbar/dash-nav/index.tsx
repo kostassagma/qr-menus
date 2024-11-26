@@ -9,7 +9,7 @@ interface Props {
 
 const DashNav: FC<Props> = ({ shop }) => {
   return (
-    <nav className="flex p-2 border-b border-gray-300 gap-3 justify-center sticky top-0 backdrop-blur-2xl z-50 w-full">
+    <nav className="flex p-2 border-b border-gray-300 gap-3 justify-center sticky top-0 bg-white z-50 w-full">
       <div className="flex max-w-7xl gap-3 w-full">
         <ShopDropdown shop={shop} />
         <UserDropdown />
