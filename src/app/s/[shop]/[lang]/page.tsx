@@ -1,4 +1,7 @@
+import FacebookIcon from "@/icons/facebook";
+import InstagramIcon from "@/icons/instagram";
 import LangsIcon from "@/icons/langs";
+import MapsIcon from "@/icons/maps";
 import { SUPPORTED_LANGUAGES } from "@/utils/constants";
 import { createSuperClient } from "@/utils/supabase/superuser";
 import Link from "next/link";
@@ -92,6 +95,19 @@ export default async function ShopPage({
               {SUPPORTED_LANGUAGES.find((e) => e.symbol == currentLang)!.label}
             </Link>
           ))}
+        </div>
+        <div className="flex">
+          <div className="flex flex-row text-sm gap-2 m-auto">
+            <Link href={""} target="_blank">
+              <MapsIcon className="w-5" />
+            </Link>
+            <Link href={""} target="_blank">
+              <InstagramIcon className="w-5" />
+            </Link>
+            <Link href={""} target="_blank">
+              <FacebookIcon className="w-5" />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
