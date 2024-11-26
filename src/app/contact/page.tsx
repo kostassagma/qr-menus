@@ -1,13 +1,13 @@
 import HomeNav from "@/components/navbar/home-nav";
 import BigFooter from "@/components/footer/big-footer";
-import { Suspense } from "react";
 import PhoneIcon from "@/icons/phone";
 import MailIcon from "@/icons/mail";
 import ContactForm from "./contact-form";
+import { Suspense } from "react";
 
 export default function Contact() {
   return (
-    <Suspense>
+    <>
       <div className="min-h-screen flex flex-col">
         <HomeNav />
         <main className="flex-1 w-full p-10 flex">
@@ -30,6 +30,6 @@ export default function Contact() {
         </main>
       </div>
       <BigFooter />
-    </Suspense>
+    </>
   );
 }
