@@ -44,7 +44,7 @@ export default async function ShopPage({
   const shopData = shopQuery.data[0];
 
   return (
-    <div>
+    <div className="flex flex-col gap-3">
       <Link
         href={`/s/${shop}`}
         target="_blank"
@@ -58,6 +58,14 @@ export default async function ShopPage({
           className="my-auto invisible group-hover:visible"
         />
       </Link>
+      <div className="flex flex-col md:flex-row gap-3">
+        <div className="bg-neutral-100 rounded-3xl p-5 flex-1 flex flex-col">
+          <EditShopName shop_names={shopData.shop_names} />
+        </div>
+        <div className="bg-neutral-100 rounded-3xl p-5 flex-1">
+          <QrCodeSnippet link={`/s/${shop}`} />
+        </div>
+      </div>
       <div className="flex flex-col md:flex-row gap-3">
         <div className="bg-neutral-100 rounded-3xl p-5 flex-1 flex flex-col">
           <EditShopName shop_names={shopData.shop_names} />

@@ -1,4 +1,3 @@
-"use client";
 import { SUPPORTED_LANGUAGES } from "@/utils/constants";
 import { FC, useState } from "react";
 

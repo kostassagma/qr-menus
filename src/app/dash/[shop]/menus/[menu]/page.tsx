@@ -77,9 +77,8 @@ export default async function ShopPage({
                 <h2 className="text-xl font-semibold three-dots">
                   {category.category_name.map((e) => e.text).join("/")}
                 </h2>
-                <p>{category.category_name.length === 0 ? "" : ""}</p>
-                <p>Αυτή η κατηγορία έχει: {category.items.length} προιόντα</p>
-                <p className="italic text-xs">
+                <p className="text-gray-800">Αυτή η κατηγορία έχει: {category.items.length} προιόντα</p>
+                <p className="italic text-xs text-gray-600">
                   Κάντε κλικ για να επεξεργαστείτε τα προϊόντα αυτής της
                   κατηγορίας
                 </p>

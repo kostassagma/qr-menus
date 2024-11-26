@@ -2,7 +2,7 @@
 import ClipBoardIcon from "@/icons/clipboard";
 import ClipBoardCheckIcon from "@/icons/clipboard-check";
 import Link from "next/link";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import toast from "react-hot-toast";
 import { QRCode } from "react-qrcode-logo";
 

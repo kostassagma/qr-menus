@@ -15,7 +15,7 @@ const EditMenuName: FC<Props> = ({ menu_names }) => {
   return (
     <div className="flex flex-col gap-2 my-auto">
       <h3 className="font-semibold text-xl">Επεξεργαστείτε το όνομα του καταλόγου:</h3>
-      {menu_names.map(({ locale, text }) => (
+      {menu_names.map(({ locale }) => (
         <div key={locale}>
           <label>
             {(() => {
