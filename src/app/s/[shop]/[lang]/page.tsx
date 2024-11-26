@@ -55,7 +55,7 @@ export default async function ShopPage({
         backgroundSize: "cover",
       }}
     >
-      <div className="m-auto shadow-2xl rounded-lg p-10 w-full bg-neutral-50 flex flex-col gap-5">
+      <div className="m-auto shadow-2xl rounded-lg p-10 w-full bg-neutral-50 flex flex-col gap-5 max-w-4xl">
         <div className="flex flex-row gap-2">
           <h1 className="text-2xl font-bold my-auto">
             {shopData.shop_names.find((e) => e.locale == lang)!.text}

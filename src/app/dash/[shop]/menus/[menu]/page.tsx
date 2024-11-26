@@ -64,7 +64,7 @@ export default async function ShopPage({
         </Link>
       </div>
       <div className="bg-neutral-100 rounded-3xl p-5 flex flex-col gap-3">
-        <p>Οι κατηγορίες του καταλόγου:</p>
+        <h3 className="text-xl font-semibold">Οι κατηγορίες του καταλόγου:</h3>
         {menuData.categories.length != 0 ? (
           <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-full">
             {menuData.categories.map((category, i) => (
