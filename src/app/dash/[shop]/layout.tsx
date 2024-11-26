@@ -16,7 +16,7 @@ export default async function Layout({
     <>
       <div className="min-h-screen flex flex-col">
         <DashNav shop={shop} />
-        <main className="max-w-7xl mx-auto w-full flex flex-col px-0 sm:px-4 gap-2 sm:gap-5 sm:flex-row py-2">
+        <main className="max-w-7xl mx-auto w-full flex flex-col px-0 sm:px-2 gap-2 sm:gap-5 sm:flex-row py-2">
           <Suspense>
             <SideNav shopPathname={shop} />
           </Suspense>
