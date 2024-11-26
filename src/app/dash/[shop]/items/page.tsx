@@ -30,7 +30,8 @@ export default async function ShopPage({
               locale, text
             ),
             available,
-            id
+            id,
+            item_order
           )
         )
       )
@@ -40,7 +41,7 @@ export default async function ShopPage({
     .limit(1);
 
   return (
-    <div>
+    <div className="bg-neutral-100 p-5 rounded-2xl">
       {shopQuery.data![0].menus.map((e, i) => (
         <div key={i}>
           <h3 className="font-semibold text-xl">
@@ -53,7 +54,7 @@ export default async function ShopPage({
                   &#8658; {e.category_name.map((e) => e.text).join("/")}
                 </h3>
                 <div className="gap-2 flex flex-col">
-                  {e.items.map((e, i) => (
+                  {e.items.sort((a, b)=>(a.item_order-b.item_order)).map((e, i) => (
                     <div
                       key={i}
                       className="w-full p-2 border border-gray-300 rounded-md  hover:cursor-pointer transition ease-in-out hover:border-gray-500 flex flex-row"
