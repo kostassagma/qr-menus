@@ -7,15 +7,15 @@ import { SUPPORTED_LANGUAGES } from "../constants";
 const locales = SUPPORTED_LANGUAGES.map((e) => e.symbol);
 
 function getLocale(request: NextRequest) {
-  let headers = {
+  const headers = {
     "accept-language":
       request.headers.get("accept-language") != null
         ? request.headers.get("accept-language")
         : "en",
   };
-  //@ts-ignore
-  let languages = new Negotiator({ headers }).languages();
-  let defaultLocale = "en";
+  //@ts-expect-error headers might not gave accept-lang
+  const languages = new Negotiator({ headers }).languages();
+  const defaultLocale = "en";
 
   return match(languages, locales, defaultLocale);
 }
@@ -30,7 +30,7 @@ export const applyLocale = (request: NextRequest) => {
 
   // Redirect if there is no locale
   const locale = getLocale(request);
-  var str = pathname.substring(locale.indexOf("/") + 1);
+  const str = pathname.substring(locale.indexOf("/") + 1);
   
   request.nextUrl.pathname = `${str}/${locale}`;
   // e.g. incoming request is /products
