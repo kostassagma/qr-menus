@@ -5,16 +5,16 @@ import { FC } from "react";
 
 export const links = [
   {
-    label: "Δυνατότητες",
-    href: "/features",
-  },
-  {
     label: "Τιμολόγηση",
     href: "/pricing",
   },
   {
-    label: "Ντέμο",
-    href: "/el/m/spider",
+    label: "Δυνατότητες",
+    href: "/features",
+  },
+  {
+    label: "Επικοινωνία",
+    href: "/contact",
   },
 ];
 

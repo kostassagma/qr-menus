@@ -98,7 +98,7 @@ export default async function ShopPage({
           </div>
         </div>
         <div className="bg-neutral-100 rounded-3xl p-5 flex-1">
-          <QrCodeSnippet link={`/s/${shop}`} />
+          
         </div>
       </div>
     </div>
