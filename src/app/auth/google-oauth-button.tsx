@@ -6,8 +6,6 @@ import { createBrowserClient } from "@/utils/supabase/client";
 import { FC } from "react";
 
 const GoogleOAuthButton: FC = () => {
-  console.log(HOSTNAME);
-  
   return (
     <button
       onClick={async () => {
