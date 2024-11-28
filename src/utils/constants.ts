@@ -17,7 +17,10 @@ export const SUPPORTED_LANGUAGES = [
   { symbol: "en", label: "Αγγλικά" },
 ];
 
-export const HOSTNAME = process.env.NEXT_PUBLIC_HOST!;
+export const HOSTNAME =
+  process.env.NODE_ENV === "development"
+    ? `http://localhost:3000`
+    : "https://www.digitalmenus.gr";
 
 export const BUNNY_ACCESS_KEY = process.env.BUNNY_ACCESS_KEY!;
 export const BUNNY_STORAGE_API_HOST = "storage.bunnycdn.com";

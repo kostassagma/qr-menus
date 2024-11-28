@@ -1,6 +1,7 @@
 "use client";
 
 import GoogleIcon from "@/icons/google";
+import { HOSTNAME } from "@/utils/constants";
 import { createBrowserClient } from "@/utils/supabase/client";
 import { FC } from "react";
 
@@ -8,15 +9,11 @@ const GoogleOAuthButton: FC = () => {
   return (
     <button
       onClick={async () => {
-
         const supabase = await createBrowserClient();
         supabase.auth.signInWithOAuth({
           provider: "google",
           options: {
-            redirectTo:
-              process.env.NODE_ENV === "development"
-                ? `http://localhost:3000/auth/callback`
-                : "https://qr-menus-eight.vercel.app/auth/callback",
+            redirectTo: `${HOSTNAME}/auth/callback`,
           },
         });
       }}
