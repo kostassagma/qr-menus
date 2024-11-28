@@ -38,7 +38,7 @@ const SideNav: FC<Props> = ({ shopPathname }) => {
 
   return (
     <ul
-      className="flex flex-row sm:flex-col gap-1 relative z-10 overflow-x-scroll overflow-y-hidden sm:overflow-auto pb-1 sm:pb-0 px-2 sm:px-0"
+      className="flex flex-row sm:flex-col gap-1 z-10 overflow-x-scroll overflow-y-hidden sm:overflow-auto py-1 sm:pb-0 px-2 sm:px-0 sticky top-16 bg-white border-b border-gray-300 sm:border-transparent"
       style={{
         scrollbarWidth: "none",
       }}

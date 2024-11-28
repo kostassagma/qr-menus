@@ -1,6 +1,7 @@
 "use client";
 import ClipBoardIcon from "@/icons/clipboard";
 import ClipBoardCheckIcon from "@/icons/clipboard-check";
+import { HOSTNAME } from "@/utils/constants";
 import Link from "next/link";
 import React, { FC, useState } from "react";
 import toast from "react-hot-toast";
@@ -44,7 +45,7 @@ const QrCodeSnippet: FC<Props> = ({ link }) => {
 
   const copyMenuLink = async () => {
     const elem = document.createElement("textarea");
-    elem.value = `http://localhost:3000${link}`;
+    elem.value = `${HOSTNAME}${link}`;
     document.body.appendChild(elem);
     elem.select();
     document.execCommand("copy");
