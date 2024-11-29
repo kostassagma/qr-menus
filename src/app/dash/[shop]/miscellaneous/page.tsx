@@ -67,10 +67,10 @@ export default async function ShopPage({
           <QrCodeSnippet link={`/s/${shop}`} />
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row gap-3">
+      <div className="flex flex-col lg:flex-row gap-3 @container">
         <div className="bg-neutral-100 rounded-3xl p-5 flex-1 flex flex-col gap-3">
           <h2 className="text-2xl font-semibold">Οι κατάλογοι του μαγαζιού:</h2>
-          <div className="grid grid-cols-2 gap-5 w-full">
+          <div className="grid grid-cols-1 gap-5 w-full @sm:grid-cols-2">
             {shopData.menus.slice(0, 3).map((menu, i) => (
               <Link
                 href={`/dash/${shop}/menus/${menu.pathname}`}

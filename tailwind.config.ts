@@ -25,5 +25,6 @@ export default {
         },
       });
     },
+    require("@tailwindcss/container-queries")
   ],
 } satisfies Config;
