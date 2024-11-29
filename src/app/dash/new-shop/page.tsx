@@ -10,82 +10,24 @@ import { createBrowserClient } from "@/utils/supabase/client";
 import { redirect } from "next/navigation";
 import { useAuthState } from "../auth-state";
 import { createShop } from "./actions";
+import { useFormState } from "react-dom";
+import { useEffect } from "react";
 
 export default function NewShop() {
+  const [error, formAction] = useFormState(createShop, { message: "" });
   const { pathname, supported_languages, shop_name } = useNewShopState();
   const { refresh } = useAuthState();
 
-  async function _createShop() {
-    if (
-      !pathname ||
-      !shop_name ||
-      !supported_languages ||
-      supported_languages.length == 0
-    ) {
-      toast.error("Συμπληρώστε όλα τα υποχρεωτικά πεδία");
-      return;
-    }
-    let name: ShopNameType[] = [];
-    try {
-      name = supported_languages.map((lang) => {
-        const shopName = shop_name.filter(({ locale }) => {
-          return locale == lang;
-        })[0];
-        if (!shopName) {
-          toast.error("Συμπληρώστε όλες τις διαλέκτους!");
-          throw new Error("");
-        }
-        return shopName;
-      });
-    } catch (err) {
-      return err;
-    }
-
-    const supabase = await createBrowserClient();
-
-    const supabaseUser = await supabase.auth.getUser();
-
-    if (supabaseUser.error || !supabaseUser.data.user) {
-      toast.error("Κάτι πήγε λάθος");
-      return;
-    }
-
-    const { data, error } = await supabase
-      .from("shops")
-      .insert({
-        pathname: pathname,
-        supported_languages,
-        owner: supabaseUser.data.user.id,
-      })
-      .select();
-
-    console.log(data);
-
-    if (error || !data[0]) {
-      toast.error("Κάτι πήγε στραβά");
-      return;
-    }
-
-    await supabase.from("shop_names").insert(
-      //@ts-expect-error because locale is str but supabase expects el|en
-      name.map(({ locale, text }) => ({
-        locale,
-        text,
-        shop: data[0].id,
-      }))
-    );
-
-    await refresh();
-
-    return redirect(`/dash/${pathname}`);
-  }
+  useEffect(() => {
+    if (error.message) toast.error(error.message);
+  }, [error]);
 
   return (
     <>
       <div className="min-h-screen">
         <DashNav />
         <form
-          action={createShop}
+          action={formAction}
           className="p-4 max-w-5xl w-full mx-auto flex flex-col gap-5 py-10"
         >
           <h1 className="text-2xl mb-4 font-bold">Δημιουργία Μαγαζιού</h1>

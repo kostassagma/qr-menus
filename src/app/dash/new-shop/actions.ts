@@ -4,45 +4,83 @@ import { uploadFileBunny } from "@/utils/bunny/upload-file";
 import { SUPPORTED_LANGUAGES } from "@/utils/constants";
 import { createServerClient } from "@/utils/supabase/server";
 import { nanoid } from "nanoid";
+import { permanentRedirect, redirect } from "next/navigation";
 import { z } from "zod";
 
-export async function createShop(formData: FormData) {
-  const supported_languages = validateStringArray(
+export async function createShop(prevState: any, formData: FormData) {
+  const pathname = nanoid();
+
+  const [supported_languages, langsParseError] = validateStringArray(
     JSON.parse(
       //@ts-expect-error runtime error works fine
       formData.get("supported_languages")
     )
   );
 
+  if (
+    !supported_languages ||
+    supported_languages.length == 0 ||
+    langsParseError
+  ) {
+    return { message: "Επιλέξτε έγκυρες γλώσσες" };
+  }
+
   supported_languages.forEach((e) => {
     if (!SUPPORTED_LANGUAGES.map((e) => e.symbol).includes(e)) {
-      throw new Error("Invalid Lang!");
+      return { message: "Επιλέξτε έγκυρες γλώσσες" };
     }
   });
 
   const menu_names = supported_languages.map((e) => {
     const inputField = formData.get(`name-${e}`);
-    if (!inputField) throw new Error("Missing Name in some langs");
+    if (!inputField) return { message: "Συμπληρώστε όλα τα υποχρεωτικά πεδία" };
     return { text: inputField, locale: e };
   });
 
+  const supabase = await createServerClient();
+
+  const supabaseUser = await supabase.auth.getUser();
+
+  if (supabaseUser.error || !supabaseUser.data.user) {
+    return { message: "Δεν έχετε εγγραφεί" };
+  }
+
   const [shopIconId, shopImageId] = await uploadShopImages(formData);
 
-  console.log(shopIconId);
-  console.log(shopImageId);
-  
+  const { data, error } = await supabase
+    .from("shops")
+    .insert({
+      pathname,
+      supported_languages,
+      owner: supabaseUser.data.user.id,
+      icon: shopIconId,
+      shop_image: shopImageId,
+    })
+    .select();
 
-  // const supabase = await createServerClient();
+  if (error || !data[0]) {
+    return { message: "Κάτι πήγε λάθος" };
+  }
 
-  // mutate data
-  // revalidate cache
+  await supabase.from("shop_names").insert(
+    //@ts-expect-error because locale is str but supabase expects el|en
+    menu_names.map(({ locale, text }) => ({
+      locale,
+      text,
+      shop: data[0].id,
+    }))
+  );
+
+  permanentRedirect(`/dash/${pathname}`);
 }
 
 const stringArraySchema = z.array(z.string());
 
-function validateStringArray(input: any): string[] {
-  const result = stringArraySchema.parse(input);
-  return result;
+function validateStringArray(
+  input: any
+): [string[] | undefined, error: z.ZodError<string[]> | undefined] {
+  const result = stringArraySchema.safeParse(input);
+  return [result.data, result.error];
 }
 
 async function uploadShopImages(formData: FormData) {
