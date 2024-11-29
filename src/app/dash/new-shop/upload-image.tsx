@@ -13,7 +13,7 @@ const UploadImages: FC = () => {
         &#8594; Τέλος, ανεβάστε φωτογραφίες του μαγαζιού:
       </h1>
       <div className="flex flex-col md:flex-row gap-3">
-        <UploadWidget file={icon} setFile={setIcon} name="icon" />
+        <UploadWidget file={icon} setFile={setIcon} name="shop_icon" />
         <UploadWidget file={shopImg} setFile={setShopImg} name="shop_image" />
       </div>
     </div>
@@ -64,7 +64,7 @@ const UploadWidget: FC<UploadWidgetProps> = ({ file, setFile, name }) => {
   return (
     <div className="flex flex-col z-[60] bg-white rounded p-5 shadow-lg flex-1">
       <label className="mb-1 flex">
-        {name === "icon" ? (
+        {name === "shop_icon" ? (
           <>
             Επιλέξτε το <p className="font-bold mx-1">εικονίδιο</p> του μαγαζιού
           </>
@@ -116,7 +116,7 @@ const UploadWidget: FC<UploadWidgetProps> = ({ file, setFile, name }) => {
           <input
             type="file"
             name={name}
-            accept="image/*"
+            accept="image/png, image/gif, image/jpeg, image/jpg"
             hidden
             onChange={handleFileChange}
           />

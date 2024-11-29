@@ -9,12 +9,13 @@ import toast from "react-hot-toast";
 import { createBrowserClient } from "@/utils/supabase/client";
 import { redirect } from "next/navigation";
 import { useAuthState } from "../auth-state";
+import { createShop } from "./actions";
 
 export default function NewShop() {
   const { pathname, supported_languages, shop_name } = useNewShopState();
   const { refresh } = useAuthState();
 
-  async function createShop() {
+  async function _createShop() {
     if (
       !pathname ||
       !shop_name ||
@@ -84,9 +85,7 @@ export default function NewShop() {
       <div className="min-h-screen">
         <DashNav />
         <form
-          action={async () => {
-            await createShop();
-          }}
+          action={createShop}
           className="p-4 max-w-5xl w-full mx-auto flex flex-col gap-5 py-10"
         >
           <h1 className="text-2xl mb-4 font-bold">Δημιουργία Μαγαζιού</h1>
