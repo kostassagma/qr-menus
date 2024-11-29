@@ -7,6 +7,10 @@ import SettingsIcon from "@/icons/settings";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import HouseFillIcon from "@/icons/house-fill";
+import SettingsFillIcon from "@/icons/settings-fill";
+import CreditFillIcon from "@/icons/creadit-fill";
+import BagFillIcon from "@/icons/bag-fill";
 
 interface Props {
   shopPathname: string;
@@ -52,12 +56,12 @@ const SideNav: FC<Props> = ({ shopPathname }) => {
               setSelected(i);
             }}
             className={`cursor-pointer py-1 px-4 ${
-              i == selected ? "text-white bg-black" : "text-black"
+              i == selected ? "text-white bg-accent" : "text-black"
             } transition-all ease-in-out z-10 relative rounded-md`}
           >
             <li className="whitespace-nowrap flex flex-row gap-2">
               {/* @ts-expect-error stupid error smh */}
-              {labels[e][1]}
+              {i == selected ? labels[e][2] : labels[e][1]}
               {/* @ts-expect-error stupid error smh */}
               <p className="my-auto"> {labels[e][0]}</p>
             </li>
@@ -74,18 +78,26 @@ const labels = {
   miscellaneous: [
     "Γενικά",
     <HouseIcon width={20} className="my-auto" key={"miscellaneous"} />,
+    <HouseFillIcon width={20} className="my-auto" key={"miscellaneous"} />,
   ],
   menus: [
     "Κατάλογοι",
+    <ListIcon width={20} className="my-auto" key={"menus"} />,
     <ListIcon width={20} className="my-auto" key={"menus"} />,
   ],
   billing: [
     "Χρεώσεις",
     <CreditIcon width={20} className="my-auto" key={"billing"} />,
+    <CreditFillIcon width={20} className="my-auto" key={"billing"} />,
   ],
-  items: ["Προϊόντα", <BagIcon width={20} className="my-auto" key={"items"} />],
+  items: [
+    "Προϊόντα",
+    <BagIcon width={20} className="my-auto" key={"items"} />,
+    <BagFillIcon width={20} className="my-auto" key={"items"} />,
+  ],
   other: [
     "Άλλες Ρυθμίσεις",
     <SettingsIcon width={20} className="my-auto" key={"other"} />,
+    <SettingsFillIcon width={20} className="my-auto" key={"other"} />,
   ],
 };
