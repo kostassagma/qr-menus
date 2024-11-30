@@ -9,10 +9,6 @@ export const links = [
     href: "/pricing",
   },
   {
-    label: "Δυνατότητες",
-    href: "/features",
-  },
-  {
     label: "Επικοινωνία",
     href: "/contact",
   },
@@ -35,7 +31,7 @@ const HomeNav: FC = () => {
           <h1 className="font-semibold text-2xl max-[350px]:text-xl">Qr</h1>
           <h1 className="font-light text-2xl max-[350px]:text-xl">Menus</h1>
         </Link>
-        <ul className="gap-5 flex-1 items-center justify-center  hidden md:flex text-gray-800">
+        <ul className="gap-5 flex-1 items-center justify-end  hidden md:flex text-gray-800 mr-5">
           {links.map(({ label, href }, i) => (
             <Link href={href} key={i}>
               <li className="cursor-pointer transition duration-300 group hover:text-black hover:scale-105">
