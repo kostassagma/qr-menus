@@ -7,7 +7,7 @@ import BackIcon from "@/icons/back";
 import SwitchLang from "./switch-lang";
 import SwitchLangsButton from "./switch-langs-button";
 
-export const revalidate = 60; // seconds
+export const revalidate = 3600; // seconds
 
 export default async function ShopPage({
   params,
