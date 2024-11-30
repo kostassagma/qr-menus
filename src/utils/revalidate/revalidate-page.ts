@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 export async function revalidateMenuPage(pahtname: string) {
+  "use server";
   console.log("Revalidate Menu Page function called !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
   
   revalidatePath(`/m/${pahtname}`, "layout");
