@@ -65,7 +65,6 @@ export default async function ShopPage({
                           {e.items_name.map((e) => e.text).join("/")}
                         </p>
                         <EditAvailability
-                          menuPathname={menuData.pathname}
                           initialValue={e.available}
                           itemId={e.id}
                         />
