@@ -10,11 +10,7 @@ interface Props {
   menuPathname: string;
 }
 
-const EditAvailability: FC<Props> = ({
-  initialValue,
-  itemId,
-  menuPathname,
-}) => {
+const EditAvailability: FC<Props> = ({ initialValue, itemId }) => {
   const [available, setAvailable] = useState(initialValue);
 
   useEffect(() => {
