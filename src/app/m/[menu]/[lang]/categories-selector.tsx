@@ -26,7 +26,7 @@ const CategoriesSelector: FC<Props> = ({ categories }) => {
       return categories[0].order;
     }
 
-    function scrollListener(ev: Event) {
+    function scrollListener() {
       setSelected(getCategoryInView());
     }
 

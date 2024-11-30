@@ -185,34 +185,3 @@ export async function generateStaticParams() {
     }))
   ).flat();
 }
-
-const cats = [
-  {
-    label: "Απλές1 Γεύσεις",
-    order: 0,
-  },
-  {
-    label: "Απλές2 Γεύσεις",
-    order: 1,
-  },
-  {
-    label: "Απλές3 Γεύσεις",
-    order: 2,
-  },
-  {
-    label: "Απλές4 Γεύσεις",
-    order: 3,
-  },
-  {
-    label: "Απλές5 Γεύσεις",
-    order: 4,
-  },
-  {
-    label: "Απλές6 Γεύσεις",
-    order: 5,
-  },
-  {
-    label: "Απλές7 Γεύσεις",
-    order: 6,
-  },
-];
