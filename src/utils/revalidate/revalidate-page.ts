@@ -9,10 +9,7 @@ export async function revalidateMenuPage(pathname: string) {
     "Revalidate Menu Page function called !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   );
 
-  // revalidatePath(`/m/${pahtname}`, "layout");
-  SUPPORTED_LANGUAGES.forEach(({ symbol }) => {
-    revalidatePath(`/m/${pathname}/${symbol}`);
-  });
+  revalidatePath(`/m/${pathname}/[lang]`, "layout");
 }
 
 export async function revalidateShopPage(pahtname: string) {
