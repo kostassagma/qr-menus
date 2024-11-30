@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import SvgBanner from "../../public/svg-banner.svg";
 import ArrowIcon from "@/icons/arrow";
-import { FC } from "react";
+import { FC, Suspense } from "react";
 import ContactForm from "./contact/contact-form";
 
 export default function Home() {
@@ -129,7 +129,9 @@ export default function Home() {
           <h3 className="text-2xl font-semibold mx-auto">
             Έχετε κάποια απορία;
           </h3>
-          <ContactForm />
+          <Suspense>
+            <ContactForm />
+          </Suspense>
         </div>
       </main>
       <BigFooter />
