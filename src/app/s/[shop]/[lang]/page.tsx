@@ -7,6 +7,8 @@ import { createSuperClient } from "@/utils/supabase/superuser";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+export const revalidate = 180; // seconds
+
 export default async function ShopPage({
   params,
 }: {
