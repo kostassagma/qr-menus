@@ -11,7 +11,7 @@ interface Props {
 }
 
 const CategoriesSelector: FC<Props> = ({ categories }) => {
-  const [selected, setSelected] = useState(categories[0].order);
+  const [selected, setSelected] = useState(0);
 
   useEffect(() => {
     function getCategoryInView() {
