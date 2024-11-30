@@ -1,7 +1,6 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { SUPPORTED_LANGUAGES } from "../constants";
 
 export async function revalidateMenuPage(pathname: string) {
   "use server";
