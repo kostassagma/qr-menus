@@ -87,12 +87,20 @@ export default async function ShopPage({
               className="ml-auto aspect-square w-12 rounded-full"
             />
           </div>
-          <CategoriesSelector categories={cats} />
+          <CategoriesSelector
+            categories={menuData.categories
+              .sort((a, b) => a.category_order - b.category_order)
+              .map((e) => ({
+                label: e.category_name.find((e) => e.locale === lang)!.text,
+                order: e.category_order,
+              }))}
+          />
           <div className="min-h-screen flex flex-col gap-4 py-5 px-3">
             {menuData.categories
               .sort((a, b) => a.category_order - b.category_order)
               .map((e) => (
                 <div key={e.category_order}>
+                  <div id={e.category_order.toString()} className="-translate-y-11" />
                   <h2 className="text-xl font-semibold border-b-2 border-gray-400">
                     {e.category_name.find((e) => e.locale === lang)!.text}
                   </h2>
@@ -151,6 +159,7 @@ export default async function ShopPage({
                   </div>
                 </div>
               ))}
+            <div className="h-screen" />
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import "./header.css";
 import Link from "next/link";
 
@@ -11,30 +11,29 @@ interface Props {
 }
 
 const CategoriesSelector: FC<Props> = ({ categories }) => {
-  const [selected] = useState(categories[0].order);
+  const [selected, setSelected] = useState(categories[0].order);
 
-  // useEffect(() => {
-  //   function getCategoryInView() {
-  //     for (let i = categories.length - 1; i > -1; i = i - 1) {
-  //       if (
-  //         //@ts-ignore
-  //         document.getElementById(categories[i].order)?.getBoundingClientRect()
-  //           .top <= 0
-  //       ) {
-  //         return categories[i].order;
-  //       }
-  //     }
-  //     return categories[0].order;
-  //   }
+  useEffect(() => {
+    function getCategoryInView() {
+      for (let i = categories.length - 1; i > -1; i = i - 1) {
+        if (
+          document.getElementById(categories[i].order.toString())!.getBoundingClientRect()
+            .top <= 0
+        ) {
+          return categories[i].order;
+        }
+      }
+      return categories[0].order;
+    }
 
-  //   function scrollListener(ev: Event) {
-  //     setSelected(getCategoryInView());
-  //   }
+    function scrollListener(ev: Event) {
+      setSelected(getCategoryInView());
+    }
 
-  //   window.addEventListener("scroll", scrollListener);
+    window.addEventListener("scroll", scrollListener);
 
-  //   return () => window.removeEventListener("scroll", scrollListener);
-  // }, []);
+    return () => window.removeEventListener("scroll", scrollListener);
+  }, []);
 
   return (
     <div
