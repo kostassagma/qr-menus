@@ -10,7 +10,11 @@ interface Props {
   menuPathname: string;
 }
 
-const EditAvailability: FC<Props> = ({ initialValue, itemId }) => {
+const EditAvailability: FC<Props> = ({
+  initialValue,
+  itemId,
+  menuPathname,
+}) => {
   const [available, setAvailable] = useState(initialValue);
 
   useEffect(() => {
@@ -19,7 +23,7 @@ const EditAvailability: FC<Props> = ({ initialValue, itemId }) => {
 
       await supabase.from("items").update({ available }).eq("id", itemId);
 
-      await revalidateMenuPage();
+      await revalidateMenuPage(menuPathname);
     })();
   }, [available, itemId]);
 

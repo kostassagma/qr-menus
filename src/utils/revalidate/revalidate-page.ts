@@ -1,14 +1,18 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { SUPPORTED_LANGUAGES } from "../constants";
 
-export async function revalidateMenuPage() {
+export async function revalidateMenuPage(pathname: string) {
   "use server";
-  console.log("Revalidate Menu Page function called !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-  
+  console.log(
+    "Revalidate Menu Page function called !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  );
+
   // revalidatePath(`/m/${pahtname}`, "layout");
-  revalidatePath(`/m/-OsPRIgQEJPP1Tm9ilZ6G/en`);
-  
+  SUPPORTED_LANGUAGES.forEach(({ symbol }) => {
+    revalidatePath(`/m/${pathname}/${symbol}`);
+  });
 }
 
 export async function revalidateShopPage(pahtname: string) {

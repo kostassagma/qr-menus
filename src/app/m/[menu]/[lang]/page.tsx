@@ -18,9 +18,6 @@ export default async function ShopPage({
   const menuPathname = _.menu;
   const lang = _.lang;
 
-  console.log("RUNNING SERVER COMPONENT!!!!!!!!!!!!!!!!!");
-  
-
   const supabase = await createSuperClient();
   const menuQuery = await supabase
     .from("menus")
