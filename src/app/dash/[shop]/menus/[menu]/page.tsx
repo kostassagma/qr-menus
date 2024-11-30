@@ -72,7 +72,7 @@ export default async function ShopPage({
               <Link
                 href={`/dash/${shop}/menus/${menu}/${category.category_order}`}
                 key={i}
-                className="rounded-lg p-5 border border-gray-300 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-500 flex flex-col gap-1 w-full"
+                className="rounded-lg p-5 border border-gray-500 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-700 flex flex-col gap-1 w-full"
               >
                 <h2 className="text-xl font-semibold three-dots">
                   {category.category_name.map((e) => e.text).join("/")}
