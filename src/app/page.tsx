@@ -52,7 +52,7 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="h-screen max-w-2xl mx-auto bg-neutral-100 rounded-3xl p-10"> Blah Bllah</div>
+        <div className="h-screen max-w-2xl mx-auto bg-slate-300 rounded-3xl p-10"> Blah Bllah</div>
       </main>
       <BigFooter />
     </>

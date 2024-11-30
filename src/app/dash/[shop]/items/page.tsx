@@ -41,7 +41,7 @@ export default async function ShopPage({
     .limit(1);
 
   return (
-    <div className="bg-neutral-100 p-5 rounded-2xl">
+    <div className="bg-slate-300 p-5 rounded-2xl">
       {shopQuery.data![0].menus.map((e, i) => (
         <div key={i}>
           <h3 className="font-semibold text-xl">

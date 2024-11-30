@@ -100,11 +100,11 @@ const QrCodeSnippet: FC<Props> = ({ link }) => {
           qrStyle={qrStyle} // type of qr code, wether you want dotted ones or the square ones
           eyeRadius={10} // radius of the promocode eye
           id={"QR"}
-          bgColor="#f5f5f5"
+          bgColor="#cbd4e1"
         />
       </div>
       <button
-        className="mx-auto p-2 border border-black rounded hover:scale-105 transition ease-in-out"
+        className="mx-auto p-2 border bg-accent text-white rounded hover:scale-105 transition ease-in-out"
         onClick={() => downloadCode()}
       >
         Λήψη ώς εικόνα

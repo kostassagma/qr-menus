@@ -13,9 +13,9 @@ const EditShopName: FC<Props> = ({ shop_names }) => {
   const [name, setName] = useState(shop_names);
 
   return (
-    <div className="flex flex-col gap-2 my-auto">
+    <div className="flex flex-col gap-2 h-full">
       <h3 className="font-semibold text-xl">
-        Επεξεργαστείτε το όνομα του μαγαζιού:
+        Επεξεργαστείτε τα στοιχεία του μαγαζιού:
       </h3>
       {shop_names.map(({ locale }) => (
         <div key={locale}>
@@ -50,11 +50,11 @@ const EditShopName: FC<Props> = ({ shop_names }) => {
           />
         </div>
       ))}
-      <div className="flex flex-row gap-2">
-        <button className="rounded-md border border-gray-500 w-full p-2 hover:scale-105 transition ease-in-out">
+      <div className="flex flex-row gap-3 mt-auto">
+        <button className="rounded-md border bg-accent text-white w-full p-2 hover:scale-105 transition ease-in-out">
           Άκυρο
         </button>
-        <button className="rounded-md border border-gray-500 w-full p-2 hover:scale-105 transition ease-in-out">
+        <button className="rounded-md border bg-accent text-white w-full p-2 hover:scale-105 transition ease-in-out">
           Αποθήκευση
         </button>
       </div>

@@ -56,7 +56,7 @@ const SideNav: FC<Props> = ({ shopPathname }) => {
               setSelected(i);
             }}
             className={`cursor-pointer py-1 px-4 ${
-              i == selected ? "text-white bg-accent" : "text-black"
+              i == selected ? "text-white bg-accent" : "text-black hover:bg-accent hover:text-white"
             } transition-all ease-in-out z-10 relative rounded-md`}
           >
             <li className="whitespace-nowrap flex flex-row gap-2">

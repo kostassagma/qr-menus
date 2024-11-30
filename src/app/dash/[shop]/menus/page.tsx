@@ -38,14 +38,14 @@ export default async function ShopPage({
     .limit(1);
 
   return (
-    <div className="flex-1 flex flex-col gap-3 w-full bg-neutral-100 p-5 rounded-3xl">
+    <div className="flex-1 flex flex-col gap-3 w-full bg-slate-300 p-5 rounded-3xl">
       <h2 className="text-2xl font-semibold">Οι κατάλογοι του μαγαζιού:</h2>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-full">
         {shopQuery.data![0].menus.map((menu, i) => (
           <Link
             href={`/dash/${shop}/menus/${menu.pathname}`}
             key={i}
-            className="rounded-lg p-5 border border-gray-300 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-500 w-full"
+            className="rounded-lg p-5 border border-gray-500 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-700 w-full"
           >
             <h2 className="text-xl font-semibold three-dots">
               {menu.menu_names.map((e) => e.text).join("/")}
@@ -59,7 +59,7 @@ export default async function ShopPage({
       </div>
       <Link
         href={`/dash/${shop}/new-menu`}
-        className="mx-auto rounded-lg p-5 border border-gray-300 hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-500 flex flex-row gap-2 group"
+        className="mx-auto rounded-lg p-5 border bg-accent text-white hover:cursor-pointer hover:scale-105 transition ease-in-out hover:border-gray-500 flex flex-row gap-2 group"
       >
         <PlusIcon
           width={20}
