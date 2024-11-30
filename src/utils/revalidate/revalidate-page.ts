@@ -7,8 +7,10 @@ export async function revalidateMenuPage(pathname: string) {
   console.log(
     "Revalidate Menu Page function called !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   );
+  console.log(pathname);
+  
 
-  revalidatePath(`/m/${pathname}/[lang]`, "layout");
+  revalidatePath(`/m/${pathname}`, "layout");
 }
 
 export async function revalidateShopPage(pahtname: string) {
