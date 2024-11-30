@@ -28,6 +28,22 @@ export default async function ShopPage({
       menu_names (
         locale,
         text
+      ),
+      categories (
+        category_order,
+        category_name (
+          text,
+          locale
+        ),
+        items (
+          item_order,
+          available,
+          price,
+          items_name (
+            text,
+            locale
+          )
+        )
       )
     `
     )
@@ -59,7 +75,7 @@ export default async function ShopPage({
           <img src="https://cdn.e-food.gr/cdn-cgi/image/f=auto/shop/6854252/cover?t=1707728012" />
         </div>
         <div className="w-full bg-neutral-50 rounded-t-3xl h-full -translate-y-6 scroll-smooth">
-          <div className="flex flex-row gap-2 p-10">
+          <div className="flex flex-row gap-2 px-7 py-10">
             <h1 className="text-2xl font-bold my-auto">
               {menuData.menu_names.find((e) => e.locale == lang)!.text}
             </h1>
@@ -71,35 +87,39 @@ export default async function ShopPage({
           </div>
           <CategoriesSelector categories={cats} />
           <div className="min-h-screen flex flex-col gap-4 py-5 px-3">
-            {cats.map((e) => (
-              <div key={e.order}>
-                <h2 className="text-xl font-semibold border-b-2 border-gray-400">
-                  {e.label}
-                </h2>
-                <div className="flex flex-col gap-4 my-4">
-                  {cats.map((e) => (
-                    <div
-                      key={e.order}
-                      className="flex flex-row gap-5 border-b border-gray-200 py-3"
-                    >
-                      <div className="flex-1">
-                        <h3 className="font-semibold mb-1">
-                          Φυσικός Χυμός Πορτοκάλι
-                        </h3>
-                        <p className="text-gray-500">
-                          Με πορτοκάλι, αχλάδι, μήλο & μπανάνα
-                        </p>
-                        <p>3,20€</p>
-                      </div>
-                      <img
-                        className="rounded-md overflow-hidden h-20"
-                        src="https://cdn.e-food.gr/cdn-cgi/image/h=160,fit=cover,q=100,f=auto/restaurants/834194/offer/1043293"
-                      />
-                    </div>
-                  ))}
+            {menuData.categories
+              .sort((a, b) => a.category_order - b.category_order)
+              .map((e) => (
+                <div key={e.category_order}>
+                  <h2 className="text-xl font-semibold border-b-2 border-gray-400">
+                    {e.category_name.find((e) => e.locale === lang)!.text}
+                  </h2>
+                  <div className="flex flex-col gap-4 my-4">
+                    {e.items
+                      .sort((a, b) => a.item_order - b.item_order)
+                      .map((e) => (
+                        <div
+                          key={e.item_order}
+                          className="flex flex-row gap-5 border-b border-gray-200 py-3"
+                        >
+                          <div className="flex-1">
+                            <h3 className="font-semibold mb-1">
+                            {e.items_name.find((e) => e.locale == lang)!.text}
+                            </h3>
+                            <p className="text-gray-500">
+                              Με πορτοκάλι, αχλάδι, μήλο & μπανάνα
+                            </p>
+                            <p>3,20€</p>
+                          </div>
+                          <img
+                            className="rounded-md overflow-hidden h-20"
+                            src="https://cdn.e-food.gr/cdn-cgi/image/h=160,fit=cover,q=100,f=auto/restaurants/834194/offer/1043293"
+                          />
+                        </div>
+                      ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>
