@@ -92,7 +92,7 @@ export default async function ShopPage({
         )}
         <Link
           href={`/dash/${shop}/menus/${menu}/edit-categories`}
-          className="mx-auto rounded-lg p-5 border bg-accent text-white hover:cursor-pointer hover:scale-105 transition ease-in-out flex flex-row gap-2 group"
+          className="mx-auto rounded-lg p-2 border bg-accent text-white hover:cursor-pointer hover:scale-105 transition ease-in-out flex flex-row gap-2 group"
         >
           <h1 className="font-medium">Επεξεργασία κατηγοριών</h1>
         </Link>
