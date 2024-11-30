@@ -4,17 +4,14 @@ import DashNav from "@/components/navbar/dash-nav";
 import SelectLanguages from "./select-languages";
 import SetName from "./set-name";
 import UploadImages from "./upload-image";
-import { ShopNameType, useNewShopState } from "./new-shop-state";
+import { useNewShopState } from "./new-shop-state";
 import toast from "react-hot-toast";
-import { createBrowserClient } from "@/utils/supabase/client";
-import { redirect } from "next/navigation";
 import { useAuthState } from "../auth-state";
 import { createShop } from "./actions";
-import { useFormState } from "react-dom";
-import { useEffect } from "react";
+import { useActionState, useEffect } from "react";
 
 export default function NewShop() {
-  const [error, formAction] = useFormState(createShop, { message: "" });
+  const [error, formAction] = useActionState(createShop, { message: "" });
   const { pathname, supported_languages, shop_name } = useNewShopState();
   const { refresh } = useAuthState();
 

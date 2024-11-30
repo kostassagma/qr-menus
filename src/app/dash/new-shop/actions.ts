@@ -4,7 +4,7 @@ import { uploadFileBunny } from "@/utils/bunny/upload-file";
 import { SUPPORTED_LANGUAGES } from "@/utils/constants";
 import { createServerClient } from "@/utils/supabase/server";
 import { nanoid } from "nanoid";
-import { permanentRedirect, redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import { z } from "zod";
 
 export async function createShop(prevState: any, formData: FormData) {
@@ -87,7 +87,9 @@ async function uploadShopImages(formData: FormData) {
   let shopIconName: string | null = null;
   const shopIconFile = formData.get("shop_icon") as File;
 
-  if (shopIconFile) {
+  console.log(shopIconFile);
+
+  if (shopIconFile.name != "undefined") {
     const arrayBuffer = await shopIconFile.arrayBuffer();
     const buffer = new Uint8Array(arrayBuffer);
     shopIconName = nanoid();
@@ -100,7 +102,7 @@ async function uploadShopImages(formData: FormData) {
   let shopImageName: string | null = null;
   const shopImageFile = formData.get("shop_image") as File;
 
-  if (shopImageFile) {
+  if (shopImageFile.name != "undefined") {
     const arrayBuffer = await shopImageFile.arrayBuffer();
     const buffer = new Uint8Array(arrayBuffer);
     shopImageName = nanoid();
