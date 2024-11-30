@@ -1,14 +1,20 @@
 "use client";
 
+import { revalidateMenuPage } from "@/utils/revalidate/revalidate-page";
 import { createBrowserClient } from "@/utils/supabase/client";
 import { FC, useEffect, useState } from "react";
 
 interface Props {
   initialValue: boolean;
   itemId: number;
+  menuPathname: string;
 }
 
-const EditAvailability: FC<Props> = ({ initialValue, itemId }) => {
+const EditAvailability: FC<Props> = ({
+  initialValue,
+  itemId,
+  menuPathname,
+}) => {
   const [available, setAvailable] = useState(initialValue);
 
   useEffect(() => {
@@ -16,6 +22,8 @@ const EditAvailability: FC<Props> = ({ initialValue, itemId }) => {
       const supabase = createBrowserClient();
 
       await supabase.from("items").update({ available }).eq("id", itemId);
+
+      revalidateMenuPage(menuPathname);
     })();
   }, [available, itemId]);
 

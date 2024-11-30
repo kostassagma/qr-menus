@@ -7,7 +7,7 @@ import { nanoid } from "nanoid";
 import { permanentRedirect } from "next/navigation";
 import { z } from "zod";
 
-export async function createShop(prevState: any, formData: FormData) {
+export async function createShop(prevState: {message: string}, formData: FormData) {
   const pathname = nanoid();
 
   const [supported_languages, langsParseError] = validateStringArray(
@@ -77,7 +77,7 @@ export async function createShop(prevState: any, formData: FormData) {
 const stringArraySchema = z.array(z.string());
 
 function validateStringArray(
-  input: any
+  input: JSON
 ): [string[] | undefined, error: z.ZodError<string[]> | undefined] {
   const result = stringArraySchema.safeParse(input);
   return [result.data, result.error];

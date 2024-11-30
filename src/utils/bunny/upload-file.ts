@@ -14,7 +14,6 @@ export const uploadFileBunny = async (path: string, file: Uint8Array) => {
 
   const res = await fetch(uploadFileUrl, {
     method: "PUT",
-    //@ts-ignore
     headers: {
       AccessKey: BUNNY_ACCESS_KEY,
       "Content-Type": "application/octet-stream",

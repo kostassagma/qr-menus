@@ -6,14 +6,12 @@ import SetName from "./set-name";
 import UploadImages from "./upload-image";
 import { useNewShopState } from "./new-shop-state";
 import toast from "react-hot-toast";
-import { useAuthState } from "../auth-state";
 import { createShop } from "./actions";
 import { useActionState, useEffect } from "react";
 
 export default function NewShop() {
   const [error, formAction] = useActionState(createShop, { message: "" });
-  const { pathname, supported_languages, shop_name } = useNewShopState();
-  const { refresh } = useAuthState();
+  const { pathname, supported_languages } = useNewShopState();
 
   useEffect(() => {
     if (error.message) toast.error(error.message);
