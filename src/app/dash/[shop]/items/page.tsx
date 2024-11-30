@@ -57,7 +57,7 @@ export default async function ShopPage({
                   {e.items.sort((a, b)=>(a.item_order-b.item_order)).map((e, i) => (
                     <div
                       key={i}
-                      className="w-full p-2 border border-gray-300 rounded-md  hover:cursor-pointer transition ease-in-out hover:border-gray-500 flex flex-row"
+                      className="w-full p-2 border border-gray-500 rounded-md  hover:cursor-pointer transition ease-in-out hover:border-gray-700 flex flex-row"
                     >
                       <p className="mr-auto three-dots">
                         {e.items_name.map((e) => e.text).join("/")}

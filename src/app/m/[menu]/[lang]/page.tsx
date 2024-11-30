@@ -96,23 +96,52 @@ export default async function ShopPage({
                   </h2>
                   <div className="flex flex-col gap-4 my-4">
                     {e.items
-                      .sort((a, b) => a.item_order - b.item_order)
+                      .sort((a, b) => {
+                        if (a.available && !b.available) {
+                          return -1;
+                        } else if (!a.available && b.available) {
+                          return 1;
+                        } else {
+                          return a.item_order - b.item_order;
+                        }
+                      })
                       .map((e) => (
                         <div
                           key={e.item_order}
                           className="flex flex-row gap-5 border-b border-gray-200 py-3"
                         >
                           <div className="flex-1">
-                            <h3 className="font-semibold mb-1">
-                            {e.items_name.find((e) => e.locale == lang)!.text}
+                            {!e.available && (
+                              <p className="text-gray-500 italic font-light">
+                                Μη διαθέσιμο
+                              </p>
+                            )}
+                            <h3
+                              className={`font-semibold ${
+                                e.available ? "text-black" : "text-gray-500"
+                              }`}
+                            >
+                              {e.items_name.find((e) => e.locale == lang)!.text}
                             </h3>
-                            <p className="text-gray-500">
+                            <p
+                              className={`mt-1 ${
+                                e.available ? "text-gray-500" : "text-gray-500"
+                              }`}
+                            >
                               Με πορτοκάλι, αχλάδι, μήλο & μπανάνα
                             </p>
-                            <p>3,20€</p>
+                            <p
+                              className={`${
+                                e.available ? "text-black" : "text-gray-500"
+                              }`}
+                            >
+                              {e.price}€
+                            </p>
                           </div>
                           <img
-                            className="rounded-md overflow-hidden h-20"
+                            className={`rounded-md overflow-hidden h-20 ${
+                              !e.available && "grayscale opacity-80"
+                            }`}
                             src="https://cdn.e-food.gr/cdn-cgi/image/h=160,fit=cover,q=100,f=auto/restaurants/834194/offer/1043293"
                           />
                         </div>
