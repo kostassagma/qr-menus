@@ -23,7 +23,7 @@ const EditAvailability: FC<Props> = ({
 
       await supabase.from("items").update({ available }).eq("id", itemId);
 
-      revalidateMenuPage(menuPathname);
+      await revalidateMenuPage(menuPathname);
     })();
   }, [available, itemId]);
 
