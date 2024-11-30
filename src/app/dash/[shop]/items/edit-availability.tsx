@@ -1,6 +1,4 @@
 "use client";
-
-import { revalidateMenuPage } from "@/utils/revalidate/revalidate-page";
 import { createBrowserClient } from "@/utils/supabase/client";
 import { FC, useEffect, useState } from "react";
 
