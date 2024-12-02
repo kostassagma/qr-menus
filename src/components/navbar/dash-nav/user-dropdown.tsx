@@ -3,6 +3,9 @@ import { useAuthState } from "@/app/dash/auth-state";
 import LogoutIcon from "@/icons/logout";
 import SettingsIcon from "@/icons/settings";
 import UserIcon from "@/icons/user";
+import { createBrowserClient } from "@/utils/supabase/client";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 import { FC, useState } from "react";
 
 const UserDropdown: FC = () => {
@@ -43,14 +46,21 @@ const UserDropdown: FC = () => {
                   expanded ? "translate-y-0" : "-translate-y-full"
                 } right-0 border md:border-t-0 border-gray-300 rounded-tl-md md:rounded-tl-none rounded-b-md bg-white w-full transition-all ease-in-out z-40 flex flex-col gap-1`}
               >
-                <button className="my-auto cursor-pointer hover:bg-gray-200 transition-all ease-in-out p-2 whitespace-nowrap flex flex-row gap-2">
+                <button
+                  className="my-auto cursor-pointer hover:bg-gray-200 transition-all ease-in-out p-2 whitespace-nowrap flex flex-row gap-2"
+                  onClick={async (e) => {
+                    const supabase = await createBrowserClient();
+                    await supabase.auth.signOut();
+                    redirect("/auth");
+                  }}
+                >
                   <LogoutIcon className="w-5 my-auto" />
                   <p className="my-auto">Αποσύνδεση</p>
                 </button>
-                <button className="my-auto cursor-pointer hover:bg-gray-200 transition-all ease-in-out p-2 whitespace-nowrap flex flex-row gap-2">
+                <Link href="/dash/profile" className="my-auto cursor-pointer hover:bg-gray-200 transition-all ease-in-out p-2 whitespace-nowrap flex flex-row gap-2">
                   <SettingsIcon className="w-5 my-auto" />
                   <p className="my-auto">Ρυθμίσεις</p>
-                </button>
+                </Link>
               </div>
             )}
           </div>
