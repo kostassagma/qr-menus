@@ -30,7 +30,7 @@ export default async function Auth() {
           </div>
         </div>
         <p className="text-center text-gray-500 text-xs">
-          &copy;2024 Spider Menus. All rights reserved.
+          &copy;2024 Qr Menus. All rights reserved.
         </p>
       </main>
     </>
