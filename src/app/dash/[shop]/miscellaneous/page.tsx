@@ -20,6 +20,7 @@ export default async function ShopPage({
       `
       supported_languages,
       shop_names (
+        id,
         locale,
         text
       ),

@@ -1,9 +1,13 @@
 "use client";
 import { SUPPORTED_LANGUAGES } from "@/utils/constants";
+import { createBrowserClient } from "@/utils/supabase/client";
+import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
+import toast from "react-hot-toast";
 
 interface Props {
   shop_names: {
+    id: number;
     locale: string;
     text: string;
   }[];
@@ -11,9 +15,19 @@ interface Props {
 
 const EditShopName: FC<Props> = ({ shop_names }) => {
   const [name, setName] = useState(shop_names);
+  const router = useRouter();
+
+  async function editShopName() {
+    const supabase = await createBrowserClient();
+    await name.forEach(async (e) => {
+      await supabase.from("shop_names").update({ text: e.text }).eq("id", e.id);
+    });
+    toast.success("Το όνομα του μαγαζιού άλλαξε επιτυχώς!");
+    router.refresh();
+  }
 
   return (
-    <div className="flex flex-col gap-2 h-full">
+    <form action={editShopName} className="flex flex-col gap-2 h-full">
       <h3 className="font-semibold text-xl">
         Επεξεργαστείτε τα στοιχεία του μαγαζιού:
       </h3>
@@ -42,6 +56,7 @@ const EditShopName: FC<Props> = ({ shop_names }) => {
               ev.preventDefault();
               setName((old) =>
                 old.map((e) => ({
+                  id: e.id,
                   locale: e.locale,
                   text: locale === e.locale ? ev.target.value : e.text,
                 }))
@@ -51,14 +66,23 @@ const EditShopName: FC<Props> = ({ shop_names }) => {
         </div>
       ))}
       <div className="flex flex-row gap-3 mt-auto">
-        <button className="rounded-md border bg-accent text-white w-full p-2 hover:scale-105 transition ease-in-out">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            setName(shop_names);
+          }}
+          className="rounded-md border bg-accent text-white w-full p-2 hover:scale-105 transition ease-in-out"
+        >
           Άκυρο
         </button>
-        <button className="rounded-md border bg-accent text-white w-full p-2 hover:scale-105 transition ease-in-out">
+        <button
+          type="submit"
+          className="rounded-md border bg-accent text-white w-full p-2 hover:scale-105 transition ease-in-out"
+        >
           Αποθήκευση
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 

@@ -1,9 +1,13 @@
 "use client";
 import { SUPPORTED_LANGUAGES } from "@/utils/constants";
+import { createBrowserClient } from "@/utils/supabase/client";
+import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
+import toast from "react-hot-toast";
 
 interface Props {
   menu_names: {
+    id: number;
     locale: string;
     text: string;
   }[];
@@ -11,10 +15,22 @@ interface Props {
 
 const EditMenuName: FC<Props> = ({ menu_names }) => {
   const [name, setName] = useState(menu_names);
+  const router = useRouter();
+
+  async function editMenuName() {
+    const supabase = await createBrowserClient();
+    await name.forEach(async (e) => {
+      await supabase.from("menu_names").update({ text: e.text }).eq("id", e.id);
+    });
+    toast.success("Το όνομα του καταλόγου άλλαξε επιτυχώς!");
+    router.refresh();
+  }
 
   return (
-    <div className="flex flex-col gap-2 h-full">
-      <h3 className="font-semibold text-xl">Επεξεργαστείτε το όνομα του καταλόγου:</h3>
+    <form action={editMenuName} className="flex flex-col gap-2 h-full">
+      <h3 className="font-semibold text-xl">
+        Επεξεργαστείτε το όνομα του καταλόγου:
+      </h3>
       {menu_names.map(({ locale }) => (
         <div key={locale}>
           <label>
@@ -25,7 +41,7 @@ const EditMenuName: FC<Props> = ({ menu_names }) => {
               }
             })()}
             :
-          </label>
+          </label>``
           <input
             value={name.filter((e) => e.locale == locale)[0].text}
             className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
@@ -40,6 +56,7 @@ const EditMenuName: FC<Props> = ({ menu_names }) => {
               ev.preventDefault();
               setName((old) =>
                 old.map((e) => ({
+                  id: e.id,
                   locale: e.locale,
                   text: locale === e.locale ? ev.target.value : e.text,
                 }))
@@ -56,7 +73,7 @@ const EditMenuName: FC<Props> = ({ menu_names }) => {
           Αποθήκευση
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 
