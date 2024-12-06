@@ -48,7 +48,7 @@ const UserDropdown: FC = () => {
               >
                 <button
                   className="my-auto cursor-pointer hover:bg-gray-200 transition-all ease-in-out p-2 whitespace-nowrap flex flex-row gap-2"
-                  onClick={async (e) => {
+                  onClick={async () => {
                     const supabase = await createBrowserClient();
                     await supabase.auth.signOut();
                     redirect("/auth");
