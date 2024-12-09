@@ -1,9 +1,9 @@
 import { createServerClient } from "@/utils/supabase/server";
 import { createSuperClient } from "@/utils/supabase/superuser";
 import { redirect } from "next/navigation";
-import ActivateSnippet from "./activate-snippet";
+import ChoosePlans from "./choose-plans";
 
-export default async function ShopPage({
+export default async function ActivatPage({
   params,
 }: {
   params: Promise<{ shop: string }>;
@@ -54,9 +54,22 @@ export default async function ShopPage({
 
   const shopData = shopQuery.data;
 
-  if (!shopData.subscriptions || shopData.subscriptions.length == 0) {
-    return <ActivateSnippet shop={shop} shop_names={shopData.shop_names} />;
+  // add check for active subscriptions !!!! IMPORTANT IMPORTANT        sjskjskjsjjksjksjksj
+  if (shopData.subscriptions.length != 0) {
+    return <div>hEllo</div>;
   }
 
-  return <div>Πληρωμές</div>;
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-row gap-1">
+        <h2 className="text-2xl font-normal">Ενεργοποιήστε το μαγαζί:</h2>
+        <h2 className="text-2xl font-semibold">
+          {shopData.shop_names.map((e) => e.text).join("/")}{" "}
+        </h2>
+      </div>
+      <div>
+        <ChoosePlans shop={shop} />
+      </div>
+    </div>
+  );
 }

@@ -11,8 +11,6 @@ export async function middleware(request: NextRequest) {
     pathname.match("^\/m\/[^\/]+\/?$") ||
     pathname.match("^\/s\/[^\/]+\/?$")
   ) {
-    console.log("HEllo");
-    
     return applyLocale(request);
   }
   
