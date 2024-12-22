@@ -53,7 +53,7 @@ const ActivateSnippet: FC<Props> = ({ shop, shop_names }) => {
                 </ul>
               </div>
               <button className="flex align-middle border border-gray-400 rounded-md p-1 w-full text-gray-600 mt-8 hover:border-black hover:text-black hover:scale-105 transition ease-in-out px-2 group">
-                <p className="flex-1 text-left">Φτιάξε το μενού σου!</p>
+                <p className="flex-1 text-left">Ενεργοποίηση</p>
                 <ArrowIcon
                   width={16}
                   height={16}
@@ -88,7 +88,7 @@ const ActivateSnippet: FC<Props> = ({ shop, shop_names }) => {
                 </ul>
               </div>
               <button className="flex align-middle border border-gray-400 rounded-md p-1 w-full text-gray-600 mt-8 hover:border-black hover:text-black hover:scale-105 transition ease-in-out px-2 group">
-                <p className="flex-1 text-left">Φτιάξε το μενού σου!</p>
+                <p className="flex-1 text-left">Ενεργοποίηση</p>
                 <ArrowIcon
                   width={16}
                   height={16}
