@@ -24,6 +24,8 @@ export default async function ShopPage({
     .select(
       `
       pathname,
+      icon,
+      shop_image,
       supported_languages,
       shop_names (
         locale,
@@ -52,10 +54,11 @@ export default async function ShopPage({
 
   return (
     <div
-      className="flex p-4 min-h-screen"
+      className="flex p-4 min-h-screen bg-neutral-200"
       style={{
-        backgroundImage:
-          "url(https://cdn.e-food.gr/cdn-cgi/image/f=auto/shop/6854252/cover?t=1707728012)",
+        backgroundImage: shopData.shop_image
+          ? `url("https://cdn.digitalmenus.gr/images/${shopData.shop_image}.png")`
+          : "",
         backgroundPosition: "center",
         backgroundSize: "cover",
       }}
@@ -65,11 +68,13 @@ export default async function ShopPage({
           <h1 className="text-2xl font-bold my-auto">
             {shopData.shop_names.find((e) => e.locale == lang)!.text}
           </h1>
-          <img
-            alt="Icon"
-            src={"https://cdn.e-food.gr/shop/6854252/logo?t=1701704968"}
-            className="ml-auto aspect-square w-12 rounded-full"
-          />
+          {shopData.icon && (
+            <img
+              alt="Icon"
+              src={`https://cdn.digitalmenus.gr/images/${shopData.icon}.png`}
+              className="ml-auto aspect-square w-12 rounded-full"
+            />
+          )}
         </div>
         <div className="flex flex-col gap-2">
           <h3 className="font-semibold">Οι καταλογοι του μαγαζιού:</h3>

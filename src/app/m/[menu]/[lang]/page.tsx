@@ -24,8 +24,11 @@ export default async function ShopPage({
     .select(
       `
       pathname,
-      shop (
-        supported_languages
+      shop:shops!inner (
+        pathname,
+        supported_languages,
+        icon,
+        shop_image
       ),
       menu_names (
         locale,
@@ -66,15 +69,19 @@ export default async function ShopPage({
   return (
     <>
       <div className="min-h-screen max-w-4xl mx-auto">
-        <div className="w-full aspect-video sticky top-0">
+        <div className={`w-full ${menuData.shop.shop_image?"aspect-video":"h-24 bg-neutral-50"} sticky top-0`}>
           <Link
-            href={"/dash"}
+            href={`/s/${menuData.shop.pathname}/${lang}`}
             className="absolute top-3 left-3 p-3 bg-gray-800 text-white rounded-full"
           >
             <BackIcon width={15} />
           </Link>
           <SwitchLangsButton />
-          <img src="https://cdn.e-food.gr/cdn-cgi/image/f=auto/shop/6854252/cover?t=1707728012" />
+          {menuData.shop.shop_image && (
+            <img
+              src={`https://cdn.digitalmenus.gr/images/${menuData.shop.shop_image}.png`}
+            />
+          )}
         </div>
         <div className="w-full bg-neutral-50 rounded-t-3xl h-full -translate-y-6 scroll-smooth">
           <div className="flex flex-row gap-2 px-7 py-10">
@@ -100,7 +107,10 @@ export default async function ShopPage({
               .sort((a, b) => a.category_order - b.category_order)
               .map((e) => (
                 <div key={e.category_order}>
-                  <div id={e.category_order.toString()} className="-translate-y-11" />
+                  <div
+                    id={e.category_order.toString()}
+                    className="-translate-y-11"
+                  />
                   <h2 className="text-xl font-semibold border-b-2 border-gray-400">
                     {e.category_name.find((e) => e.locale === lang)!.text}
                   </h2>

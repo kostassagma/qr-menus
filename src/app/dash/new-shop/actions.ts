@@ -47,6 +47,9 @@ export async function createShop(prevState: {message: string}, formData: FormDat
 
   const [shopIconId, shopImageId] = await uploadShopImages(formData);
 
+  console.log(shopIconId, shopImageId);
+  
+
   const { data, error } = await supabase
     .from("shops")
     .insert({
@@ -91,11 +94,11 @@ async function uploadShopImages(formData: FormData) {
 
   if (shopIconFile.name != "undefined") {
     const arrayBuffer = await shopIconFile.arrayBuffer();
-    const buffer = new Uint8Array(arrayBuffer);
+    // const buffer = new Uint8Array(arrayBuffer);
     shopIconName = nanoid();
-    uploadFileBunny(
+    await uploadFileBunny(
       `images/${shopIconName}.png`,
-      await convertImage(buffer, { height: 80, width: 80 })
+      await convertImage(arrayBuffer, { height: 80, width: 80 })
     );
   }
 
@@ -104,11 +107,11 @@ async function uploadShopImages(formData: FormData) {
 
   if (shopImageFile.name != "undefined") {
     const arrayBuffer = await shopImageFile.arrayBuffer();
-    const buffer = new Uint8Array(arrayBuffer);
+    // const buffer = new Uint8Array(arrayBuffer);
     shopImageName = nanoid();
-    uploadFileBunny(
+    await uploadFileBunny(
       `/images/${shopImageName}.png`,
-      await convertImage(buffer, { height: 1000, width: 1000 })
+      await convertImage(arrayBuffer, { height: 1000, width: 1000 })
     );
   }
 
